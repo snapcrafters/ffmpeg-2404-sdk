@@ -149,7 +149,7 @@ parts:
       - libcdio-paranoia-dev
       - libchromaprint-dev
       - libcodec2-dev
-      - libdc1394-22-dev
+      - libdc1394-dev
       - libdrm-dev
       - libfribidi-dev
       - libgme-dev
