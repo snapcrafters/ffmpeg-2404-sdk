@@ -199,12 +199,12 @@ parts:
       - opencl-headers
       - pkg-config
       - yasm
-      - on amd64:
+      #- on amd64:
         #- libcrystalhd-dev
         # TODO: re-enable `nvidia-cuda*` if we can determine that we can ship non-free
         # - nvidia-cuda-dev
         # - nvidia-cuda-toolkit
-      - on i386:
+      #- on i386:
         #- libcrystalhd-dev
     stage-packages:
       - libaom3
