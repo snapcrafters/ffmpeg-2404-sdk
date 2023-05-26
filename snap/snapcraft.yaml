@@ -8,7 +8,7 @@ description: |
  up to the cutting edge. No matter if they were designed by some standards
  committee, the community or a corporation.
 
-base: core20
+base: core22
 grade: stable
 confinement: strict
 compression: lzo
@@ -178,8 +178,8 @@ parts:
       - x264
       - zimg
     plugin: autotools
-    source: https://github.com/FFmpeg/FFmpeg.git
-    source-branch: release/4.4
+    source: https://git.ffmpeg.org/ffmpeg.git
+    source-tag: v0.6.1
     build-packages:
       - flite1-dev
       - libass-dev
@@ -317,17 +317,17 @@ parts:
       - ocl-icd-libopencl1
       - on amd64:
         - mesa-va-drivers
-        - libcrystalhd3
+        #- libcrystalhd3
         # TODO: re-enable `libnpp*` if we can determine that we can ship non-free
         # - libnppig10
         # - libnppicc10
         # - libnppidei10
       - on i386:
         - mesa-va-drivers
-        - libcrystalhd3
+        #- libcrystalhd3
     override-pull: |
-      snapcraftctl pull
-      snapcraftctl set-version "$(git describe --tags)"
+      craftctl pull
+      craftctl set-version "$(git describe --tags | cut -c -2)"
     override-build: |
       if [ "$SNAPCRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
@@ -414,12 +414,12 @@ parts:
       # TODO: re-enable `--enable-nonfree \` if we can determine the legality/licensing issues are ok.
       
       make -j $(nproc)
-      make DESTDIR="$SNAPCRAFT_PART_INSTALL" install
-    prime:
-      - -usr/include
-      - -usr/lib/pkgconfig
-      - -usr/share/ffmpeg/examples
-      - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libx264.so*
+      make DESTDIR="$CRAFT_PART_INSTALL" install
+    #prime:
+    #  - -usr/include
+    #  - -usr/lib/pkgconfig
+    #  - -usr/share/ffmpeg/examples
+    #  - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libx264.so*
 
   ffmpeg-wrapper:
     plugin: dump
