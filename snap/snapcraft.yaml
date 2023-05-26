@@ -128,7 +128,6 @@ parts:
 
   ffmpeg:
     after:
-      - aom
       - avisynth-plus
       - dav1d
       - desktop-glib-only
