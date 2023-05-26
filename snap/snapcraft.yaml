@@ -288,7 +288,7 @@ parts:
         - mesa-va-drivers
         #- libcrystalhd3
     override-pull: |
-      craftctl pull
+      craftctl default
       craftctl set-version "$(git describe --tags | cut -c -2)"
     override-build: |
       if [ "$SNAPCRAFT_TARGET_ARCH" = "amd64" ]; then
