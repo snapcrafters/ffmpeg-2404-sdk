@@ -259,7 +259,7 @@ parts:
       - libvpx6
       - libvulkan1
       - libwavpack1
-      - libwebp6
+      - libwebp7
       - libwebpmux3
       - libx265-199
       - libx11-6
