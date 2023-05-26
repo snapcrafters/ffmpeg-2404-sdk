@@ -256,7 +256,7 @@ parts:
       - libvo-amrwbenc0
       - libvorbis0a
       - libvorbisenc2
-      - libvpx6
+      - libvpx7
       - libvulkan1
       - libwavpack1
       - libwebp7
