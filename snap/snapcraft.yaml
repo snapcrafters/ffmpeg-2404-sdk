@@ -261,7 +261,7 @@ parts:
       - libwavpack1
       - libwebp6
       - libwebpmux3
-      - libx265-179
+      - libx265-199
       - libx11-6
       - libxau6
       - libxcb-shape0
