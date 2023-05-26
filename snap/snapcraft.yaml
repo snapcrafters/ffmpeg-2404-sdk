@@ -217,8 +217,8 @@ parts:
       - libcaca0
       - libcdio-paranoia2
       - libchromaprint1
-      - libcodec2-0.9
-      - libdc1394-22
+      - libcodec2-1.0
+      - libdc1394-25
       - libdrm2
       - libflite1
       - libfribidi0
