@@ -108,6 +108,8 @@ parts:
       - -Denable_tests=false
     build-packages:
       - libxxhash-dev
+      - meson
+      - ninja-build
     stage-packages:
       - libxxhash0
     prime:
