@@ -138,7 +138,7 @@ parts:
       - x264
       - zimg
     plugin: autotools
-    source: https://github.com/FFmpeg/FFmpeg
+    source: https://github.com/FFmpeg/FFmpeg.git
     source-tag: v0.6.1
     build-packages:
       - libaom-dev
