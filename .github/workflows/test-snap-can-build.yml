@@ -15,7 +15,11 @@ jobs:
 
       - uses: snapcore/action-build@v1
         id: build
-
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ffmpeg-snap
+          path: ${{ steps.build.outputs.snap }} 
       - uses: diddlesnaps/snapcraft-review-action@v1
         with:
           snap: ${{ steps.build.outputs.snap }}
