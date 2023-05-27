@@ -20,8 +20,8 @@ architectures:
   - build-on: armhf
 
 layout:
-  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
-    symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
+  /usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib
   /usr/share/alsa:
     symlink: $SNAP/usr/share/alsa
   /usr/share/libdrm/amdgpu.ids:
@@ -65,7 +65,7 @@ parts:
       - libssl-dev
     prime:
       - -usr/include
-      - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pkgconfig
+      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   avisynth-plus:
     plugin: cmake
@@ -78,7 +78,7 @@ parts:
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
     prime:
       - -usr/include
-      - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pkgconfig
+      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   x264:
     plugin: autotools
@@ -114,7 +114,7 @@ parts:
       - libxxhash0
     prime:
       - -usr/include
-      - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pkgconfig
+      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   zimg:
     plugin: autotools
@@ -139,7 +139,7 @@ parts:
       - zimg
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
-    source-tag: v0.6.1
+    source-branch: 'release/6.0'
     build-packages:
       - libaom-dev
       - flite1-dev
@@ -291,14 +291,14 @@ parts:
       craftctl default
       craftctl set version="$(git describe --tags --abbrev=0 | cut -c 2-)"
     override-build: |
-      if [ "$SNAPCRAFT_TARGET_ARCH" = "amd64" ]; then
+      if [ "$CRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
         EXTRA="--enable-vdpau --enable-nvenc --enable-cuvid"
-      elif [ "$SNAPCRAFT_TARGET_ARCH" = "i386" ]; then
+      elif [ "$CRAFT_TARGET_ARCH" = "i386" ]; then
         EXTRA="--enable-vdpau --enable-nvenc"
-      elif [ "$SNAPCRAFT_TARGET_ARCH" = "armhf" ]; then
+      elif [ "$CRAFT_TARGET_ARCH" = "armhf" ]; then
         EXTRA="--disable-vdpau --enable-neon"
-      elif [ "$SNAPCRAFT_TARGET_ARCH" = "arm64" ]; then
+      elif [ "$CRAFT_TARGET_ARCH" = "arm64" ]; then
         EXTRA="--disable-vdpau"
       else
         EXTRA=""
@@ -380,7 +380,7 @@ parts:
     #  - -usr/include
     #  - -usr/lib/pkgconfig
     #  - -usr/share/ffmpeg/examples
-    #  - -usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libx264.so*
+    #  - -usr/lib/$CRAFT_ARCH_TRIPLET/libx264.so*
 
   ffmpeg-wrapper:
     plugin: dump
@@ -399,13 +399,13 @@ parts:
     after: [ ffmpeg-wrapper ]
     override-prime: |
       for CRUFT in usr/share/bug usr/share/lintian usr/share/man; do
-        rm -rf ${SNAPCRAFT_PRIME}/${CRUFT}
+        rm -rf ${CRAFT_PRIME}/${CRUFT}
       done
-      find ${SNAPCRAFT_PRIME}/usr/share/doc/ -type f -not -name 'copyright' -delete || true
-      rm ${SNAPCRAFT_PRIME}/usr/share/doc/*/*.gz 2>/dev/null || true
-      rm -rf ${SNAPCRAFT_PRIME}/usr/share/doc/*/examples || true
-      rm ${SNAPCRAFT_PRIME}/usr/share/doc/*/README* 2>/dev/null || true
-      find ${SNAPCRAFT_PRIME}/usr -type d -empty -delete || true
+      find ${CRAFT_PRIME}/usr/share/doc/ -type f -not -name 'copyright' -delete || true
+      rm ${CRAFT_PRIME}/usr/share/doc/*/*.gz 2>/dev/null || true
+      rm -rf ${CRAFT_PRIME}/usr/share/doc/*/examples || true
+      rm ${CRAFT_PRIME}/usr/share/doc/*/README* 2>/dev/null || true
+      find ${CRAFT_PRIME}/usr -type d -empty -delete || true
 
 apps:
   ffmpeg:
