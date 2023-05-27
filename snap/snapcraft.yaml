@@ -24,8 +24,6 @@ layout:
     symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib
   /usr/share/alsa:
     symlink: $SNAP/usr/share/alsa
-  /usr/share/libdrm:
-    symlink: $SNAP/usr/share/libdrm
 
 parts:
   desktop-glib-only:
