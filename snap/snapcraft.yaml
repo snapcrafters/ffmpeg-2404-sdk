@@ -289,7 +289,7 @@ parts:
         #- libcrystalhd3
     override-pull: |
       craftctl default
-      craftctl set version "$(git describe --tags | cut -c 2-)"
+      craftctl set version="$(git describe --tags --abbrev=0 | cut -c 2-)"
     override-build: |
       if [ "$SNAPCRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
