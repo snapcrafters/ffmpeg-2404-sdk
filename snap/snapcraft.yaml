@@ -15,12 +15,6 @@ grade: stable
 confinement: strict
 compression: lzo
 
-layout:
-  /usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib:
-    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib
-  /usr/share/alsa:
-    symlink: $SNAP/usr/share/alsa
-
 parts:
   nv-codec-headers:
     plugin: make
@@ -228,10 +222,6 @@ parts:
       - libx265-199
       - libx11-6
       - libxau6
-      - libxcb-shape0
-      - libxcb-shm0
-      - libxcb-xfixes0
-      - libxcb1
       - libxdmcp6
       - libxext6
       - libxml2
@@ -266,6 +256,7 @@ parts:
       fi
       ./configure \
       --prefix=/usr \
+      --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET} \
       --disable-debug \
       --disable-doc \
       --disable-static \
@@ -342,3 +333,26 @@ parts:
     #  - -usr/lib/pkgconfig
     #  - -usr/share/ffmpeg/examples
     #  - -usr/lib/$CRAFT_ARCH_TRIPLET/libx264.so*
+
+  prefix-fix:
+    after: [ ffmpeg ]
+    override-prime: |
+      set -eux
+      override-prime:
+        set -eux
+        for PC in $(find . -path "*/pkgconfig/*.pc")
+        do
+          sed -i '1cprefix=/snap/ffmpeg-2204-sdk/current/usr' $PC
+          sed -i 's#libdir=/usr#libdir=${prefix}#' $PC
+          sed -i 's#includedir=/usr#includedir=${prefix}#' $PC
+        done
+
+  cleanup:
+    after: [ ffmpeg, prefix-fix ]
+    prime:
+      - -etc
+      - -usr/bin/fc*
+      - -usr/bin/X11
+      - -usr/lib/X11
+      - -usr/share
+      - -usr/include/X11
