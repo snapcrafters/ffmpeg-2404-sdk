@@ -1,23 +1,19 @@
-name: ffmpeg
-adopt-info: ffmpeg
-summary: A complete solution to record, convert and stream audio and video.
-description: |
- FFmpeg is the leading multimedia framework, able to decode, encode,
- transcode, mux, demux, stream, filter and play pretty much anything that
- humans and machines have created. It supports the most obscure ancient formats
- up to the cutting edge. No matter if they were designed by some standards
- committee, the community or a corporation.
-
+name: ffmpeg-2204-sdk
+#adopt-info: ffmpeg-2204-sdk
+#summary: A complete solution to record, convert and stream audio and video.
+#description: |
+# FFmpeg is the leading multimedia framework, able to decode, encode,
+# transcode, mux, demux, stream, filter and play pretty much anything that
+# humans and machines have created. It supports the most obscure ancient formats
+# up to the cutting edge. No matter if they were designed by some standards
+# committee, the community or a corporation.
+summary: SDK for ffmpeg-2204
+description: SDK to build ffmpeg-2204 from source
+version: git
 base: core22
 grade: stable
 confinement: strict
 compression: lzo
-
-architectures:
-  - build-on: amd64
-  - build-on: ppc64el
-  - build-on: arm64
-  - build-on: armhf
 
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib:
@@ -26,16 +22,6 @@ layout:
     symlink: $SNAP/usr/share/alsa
 
 parts:
-  desktop-glib-only:
-    plugin: make
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: glib-only
-    build-packages:
-      - libglib2.0-dev
-    stage-packages:
-      - libglib2.0-bin
-      - shared-mime-info
-
   nv-codec-headers:
     plugin: make
     source: https://github.com/FFmpeg/nv-codec-headers.git
@@ -44,9 +30,6 @@ parts:
       - PREFIX=/usr
     build-packages:
       - pkg-config
-    prime:
-      - -usr/include
-      - -usr/lib/pkgconfig
 
   srt:
     plugin: cmake
@@ -61,9 +44,6 @@ parts:
       - -DENABLE_STATIC=OFF
     build-packages:
       - libssl-dev
-    prime:
-      - -usr/include
-      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   avisynth-plus:
     plugin: cmake
@@ -74,9 +54,6 @@ parts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_C_FLAGS_RELEASE=-s
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
-    prime:
-      - -usr/include
-      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   x264:
     plugin: autotools
@@ -90,10 +67,7 @@ parts:
     build-packages:
       - libva-dev
       - nasm
-    prime:
-      - usr/lib
-      - -usr/lib/pkgconfig
-      
+
   dav1d:
     plugin: meson
     source: https://code.videolan.org/videolan/dav1d.git
@@ -110,9 +84,6 @@ parts:
       - ninja-build
     stage-packages:
       - libxxhash0
-    prime:
-      - -usr/include
-      - -usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig
 
   zimg:
     plugin: autotools
@@ -120,11 +91,6 @@ parts:
     source-tag: 'release-3.0.4'
     autotools-configure-parameters:
       - --prefix=/usr
-    prime:
-      - -usr/include
-      - -usr/lib/*.a
-      - -usr/lib/*.la
-      - -usr/lib/pkgconfig
 
   ffmpeg:
     after:
@@ -285,9 +251,6 @@ parts:
       - on i386:
         - mesa-va-drivers
         #- libcrystalhd3
-    override-pull: |
-      craftctl default
-      craftctl set version="$(git describe --tags --abbrev=0 | cut -c 2-)"
     override-build: |
       if [ "$CRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
@@ -369,9 +332,9 @@ parts:
       --enable-version3 \
       --enable-vulkan \
       --enable-xlib ${EXTRA}
-      
+
       # TODO: re-enable `--enable-nonfree \` if we can determine the legality/licensing issues are ok.
-      
+
       make -j $(nproc)
       make DESTDIR="$CRAFT_PART_INSTALL" install
     #prime:
@@ -379,111 +342,3 @@ parts:
     #  - -usr/lib/pkgconfig
     #  - -usr/share/ffmpeg/examples
     #  - -usr/lib/$CRAFT_ARCH_TRIPLET/libx264.so*
-
-  ffmpeg-wrapper:
-    plugin: dump
-    after: [ ffmpeg ]
-    source: snap/local/
-    stage-packages:
-      - mesa-utils
-      - mesa-utils-extra
-      - vainfo
-      - vdpauinfo
-    organize:
-      ffmpeg-wrapper: bin/
-
-  cleanup:
-    plugin: nil
-    after: [ ffmpeg-wrapper ]
-    override-prime: |
-      for CRUFT in usr/share/bug usr/share/lintian usr/share/man; do
-        rm -rf ${CRAFT_PRIME}/${CRUFT}
-      done
-      find ${CRAFT_PRIME}/usr/share/doc/ -type f -not -name 'copyright' -delete || true
-      rm ${CRAFT_PRIME}/usr/share/doc/*/*.gz 2>/dev/null || true
-      rm -rf ${CRAFT_PRIME}/usr/share/doc/*/examples || true
-      rm ${CRAFT_PRIME}/usr/share/doc/*/README* 2>/dev/null || true
-      find ${CRAFT_PRIME}/usr -type d -empty -delete || true
-
-apps:
-  ffmpeg:
-    command: usr/bin/ffmpeg
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: &plugs
-      - alsa
-      - audio-playback
-      - audio-record
-      - camera
-      - desktop
-      - hardware-observe
-      - home
-      - network-bind
-      - network
-      - opengl
-      - optical-drive
-      - pulseaudio
-      - removable-media
-      - wayland
-      - x11
-  ffprobe:
-    command: usr/bin/ffprobe
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  ffplay:
-    command: usr/bin/ffplay
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  srt-ffplay:
-    command: usr/bin/srt-ffplay
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  srt-file-transmit:
-    command: usr/bin/srt-file-transmit
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  srt-live-transmit:
-    command: usr/bin/srt-live-transmit
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  srt-tunnel:
-    command: usr/bin/srt-tunnel
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  vainfo:
-    command: usr/bin/vainfo
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  vdpauinfo:
-    command: usr/bin/vdpauinfo
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  eglinfo:
-    command: usr/bin/eglinfo
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
-  glxinfo:
-    command: usr/bin/glxinfo
-    command-chain:
-      - bin/desktop-launch
-      - bin/ffmpeg-wrapper
-    plugs: *plugs
