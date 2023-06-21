@@ -90,7 +90,6 @@ parts:
     after:
       - avisynth-plus
       - dav1d
-      - desktop-glib-only
       - nv-codec-headers
       - srt
       - x264
