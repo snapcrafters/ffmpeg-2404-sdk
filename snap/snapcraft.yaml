@@ -336,6 +336,7 @@ parts:
 
   prefix-fix:
     after: [ ffmpeg ]
+    plugin: nil
     override-prime: |
       set -eux
       override-prime:
@@ -349,6 +350,7 @@ parts:
 
   cleanup:
     after: [ ffmpeg, prefix-fix ]
+    plugin: nil
     prime:
       - -etc
       - -usr/bin/fc*
