@@ -55,6 +55,7 @@ parts:
     source-branch: 'stable'
     autotools-configure-parameters:
       - --prefix=/usr
+      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
       - --disable-cli
       - --enable-shared
       - --enable-strip
@@ -85,6 +86,7 @@ parts:
     source-tag: 'release-3.0.4'
     autotools-configure-parameters:
       - --prefix=/usr
+      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
 
   ffmpeg:
     after:
@@ -342,6 +344,7 @@ parts:
       do
         sed -i '1cprefix=/snap/ffmpeg-2204-sdk/current/usr' $PC
         sed -i 's#libdir=/usr#libdir=${prefix}#' $PC
+        sed -i 's#exec_prefix=/usr#exec_prefix=${prefix}#' $PC
         sed -i 's#includedir=/usr#includedir=${prefix}#' $PC
       done
 
