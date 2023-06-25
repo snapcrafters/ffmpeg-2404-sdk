@@ -297,24 +297,18 @@ parts:
       - librubberband2
       - libsdl2-2.0-0
       - libshine3
-      - libslang2
       - libsnappy1v5
       - libsoxr0
-      - libspeex1
       - libssh-gcrypt-4
       - libtesseract4
-      - libtheora0
       - libtwolame0
       - libusb-1.0-0
       - libv4l-0
       - libv4l2rds0
       - libvdpau-va-gl1
       - libvo-amrwbenc0
-      - libvorbis0a
-      - libvorbisenc2
       - libvpx7
       - libvulkan1
-      - libwavpack1
       - libx265-199
       - libxau6
       - libxdmcp6
@@ -347,3 +341,49 @@ parts:
       - -usr/lib/*/dri
       - -usr/lib/*/gdk*
       - -usr/lib/*/pulseaudio
+      - -usr/lib/*/libv4l
+      - -usr/lib/*/libv4lc*
+      - -usr/lib/*/libv4l1*
+      - -usr/lib/*/libv4l2.so*
+      - -usr/lib/*/libv4l-m*
+      - -usr/lib/*/libarchive*
+      - -usr/lib/*/libasound*
+      - -usr/lib/*/libasync*
+      - -usr/lib/*/libcairo*
+      - -usr/lib/*/libdatrie*
+      - -usr/lib/*/libdeflate*
+      - -usr/lib/*/libdrm*
+      - -usr/lib/*/libFLAC*
+      - -usr/lib/*/libfontconfig*
+      - -usr/lib/*/libgdk*
+      - -usr/lib/*/libGL*
+      - -usr/lib/*/libgomp*
+      - -usr/lib/*/libgraphite*
+      - -usr/lib/*/libharfbuzz*
+      - -usr/lib/*/libicu*
+      - -usr/lib/*/libjpeg*
+      - -usr/lib/*/libLLVM*
+      - -usr/lib/*/libmpg*
+      - -usr/lib/*/libogg*
+      - -usr/lib/*/libopenjp*
+      - -usr/lib/*/libopus*
+      - -usr/lib/*/libpango*
+      - -usr/lib/*/libpixman*
+      - -usr/lib/*/libpulse*
+      - -usr/lib/*/libraw*
+      - -usr/lib/*/librsvg*
+      - -usr/lib/*/libsample*
+      - -usr/lib/*/libsensor*
+      - -usr/lib/*/libsndfile*
+      - -usr/lib/*/libthai*
+      - -usr/lib/*/libtiff*
+      - -usr/lib/*/libtwolame*
+      - -usr/lib/*/libva*
+      - -usr/lib/*/libvpx*
+      - -usr/lib/*/libwayland*
+      - -usr/lib/*/libwebp*
+      - -usr/lib/*/libX11*
+      - -usr/lib/*/libXau*
+      - -usr/lib/*/libxcb*
+      - -usr/lib/*/libX*
+      - -usr/lib/*/libxkb*
