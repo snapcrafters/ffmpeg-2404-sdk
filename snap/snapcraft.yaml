@@ -24,8 +24,8 @@ parts:
       - PREFIX=/usr
     build-packages:
       - pkg-config
-    organize:
-      usr/lib: usr/lib/$CRAFT_ARCH_TRIPLET
+    #organize:
+    #  usr/lib: usr/lib/$CRAFT_ARCH_TRIPLET
 
   srt:
     plugin: cmake
