@@ -8,7 +8,7 @@ name: ffmpeg-2204-sdk
 # up to the cutting edge. No matter if they were designed by some standards
 # committee, the community or a corporation.
 summary: SDK for ffmpeg-2204
-description: SDK to build ffmpeg-2204 from source
+description: SDK to build ffmpeg-2204 content snap
 version: git
 base: core22
 grade: stable
@@ -77,8 +77,6 @@ parts:
       - libxxhash-dev
       - meson
       - ninja-build
-    stage-packages:
-      - libxxhash0
 
   zimg:
     plugin: autotools
@@ -167,81 +165,7 @@ parts:
         # - nvidia-cuda-toolkit
       #- on i386:
         #- libcrystalhd-dev
-    stage-packages:
-      - libaom3
-      - freeglut3
-      - libass9
-      - libbluray2
-      - libbs2b0
-      - libcaca0
-      - libcdio-paranoia2
-      - libchromaprint1
-      - libcodec2-1.0
-      - libdc1394-25
-      - libdrm2
-      - libflite1
-      - libfribidi0
-      - libglu1-mesa
-      - libgme0
-      - libgnutls30
-      - libgsm1
-      - libmp3lame0
-      - libopenal1
-      - libopencore-amrnb0
-      - libopencore-amrwb0
-      - libopenjp2-7
-      - libopenmpt0
-      - libopus0
-      - libpulse0
-      - librsvg2-2
-      - librubberband2
-      - libsdl2-2.0-0
-      - libshine3
-      - libslang2
-      - libsnappy1v5
-      - libsoxr0
-      - libspeex1
-      - libssh-gcrypt-4
-      - libtesseract4
-      - libtheora0
-      - libtwolame0
-      - libusb-1.0-0
-      - libv4l-0
-      - libv4l2rds0
-      - libva-drm2
-      - libva-glx2
-      - libva-wayland2
-      - libvdpau-va-gl1
-      - libvo-amrwbenc0
-      - libvorbis0a
-      - libvorbisenc2
-      - libvpx7
-      - libvulkan1
-      - libwavpack1
-      - libwebp7
-      - libwebpmux3
-      - libx265-199
-      - libx11-6
-      - libxau6
-      - libxdmcp6
-      - libxext6
-      - libxml2
-      - libxv1
-      - libxvidcore4
-      - libzmq5
-      - libzvbi0
-      - mesa-vdpau-drivers
-      - ocl-icd-libopencl1
-      - on amd64:
-        - mesa-va-drivers
-        #- libcrystalhd3
-        # TODO: re-enable `libnpp*` if we can determine that we can ship non-free
-        # - libnppig10
-        # - libnppicc10
-        # - libnppidei10
-      - on i386:
-        - mesa-va-drivers
-        #- libcrystalhd3
+
     override-build: |
       if [ "$CRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
@@ -348,13 +272,91 @@ parts:
         sed -i 's#includedir=/usr#includedir=${prefix}#' $PC
       done
 
-  cleanup:
+  deps:
     after: [ ffmpeg, prefix-fix ]
     plugin: nil
+    stage-packages:
+      - libaom3
+      - freeglut3
+      - libass9
+      - libbluray2
+      - libbs2b0
+      - libcaca0
+      - libcdio-paranoia2
+      - libchromaprint1
+      - libcodec2-1.0
+      - libdc1394-25
+      - libdrm2
+      - libflite1
+      - libfribidi0
+      - libglu1-mesa
+      - libgme0
+      - libgnutls30
+      - libgsm1
+      - libmp3lame0
+      - libopenal1
+      - libopencore-amrnb0
+      - libopencore-amrwb0
+      - libopenjp2-7
+      - libopenmpt0
+      - libopus0
+      - libpulse0
+      - librsvg2-2
+      - librubberband2
+      - libsdl2-2.0-0
+      - libshine3
+      - libslang2
+      - libsnappy1v5
+      - libsoxr0
+      - libspeex1
+      - libssh-gcrypt-4
+      - libtesseract4
+      - libtheora0
+      - libtwolame0
+      - libusb-1.0-0
+      - libv4l-0
+      - libv4l2rds0
+      - libva-drm2
+      - libva-glx2
+      - libva-wayland2
+      - libvdpau-va-gl1
+      - libvo-amrwbenc0
+      - libvorbis0a
+      - libvorbisenc2
+      - libvpx7
+      - libvulkan1
+      - libwavpack1
+      - libwebp7
+      - libwebpmux3
+      - libx265-199
+      - libx11-6
+      - libxau6
+      - libxdmcp6
+      - libxext6
+      - libxml2
+      - libxv1
+      - libxvidcore4
+      - libxxhash0
+      - libzmq5
+      - libzvbi0
+      - mesa-vdpau-drivers
+      - ocl-icd-libopencl1
+      - on amd64:
+        - mesa-va-drivers
+        #- libcrystalhd3
+        # TODO: re-enable `libnpp*` if we can determine that we can ship non-free
+        # - libnppig10
+        # - libnppicc10
+        # - libnppidei10
+      - on i386:
+        - mesa-va-drivers
+        #- libcrystalhd3
     prime:
+      - -usr/share
       - -etc
+      - -var
       - -usr/bin/fc*
       - -usr/bin/X11
-      - -usr/lib/X11
-      - -usr/share
       - -usr/include/X11
+      - -usr/lib/X11
+      
