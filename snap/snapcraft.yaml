@@ -22,10 +22,9 @@ parts:
     source-tag: 'n12.0.16.0'
     make-parameters:
       - PREFIX=/usr
+      - LIBDIR=lib/$CRAFT_ARCH_TRIPLET
     build-packages:
       - pkg-config
-    #organize:
-    #  usr/lib: usr/lib/$CRAFT_ARCH_TRIPLET
 
   srt:
     plugin: cmake
