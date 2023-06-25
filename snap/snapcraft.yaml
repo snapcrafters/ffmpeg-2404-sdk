@@ -24,6 +24,8 @@ parts:
       - PREFIX=/usr
     build-packages:
       - pkg-config
+    organize:
+      usr/lib: usr/lib/$CRAFT_ARCH_TRIPLET
 
   srt:
     plugin: cmake
@@ -277,31 +279,22 @@ parts:
     plugin: nil
     stage-packages:
       - libaom3
-      - freeglut3
       - libass9
       - libbluray2
       - libbs2b0
-      - libcaca0
       - libcdio-paranoia2
       - libchromaprint1
       - libcodec2-1.0
       - libdc1394-25
-      - libdrm2
       - libflite1
-      - libfribidi0
-      - libglu1-mesa
       - libgme0
-      - libgnutls30
       - libgsm1
       - libmp3lame0
       - libopenal1
       - libopencore-amrnb0
       - libopencore-amrwb0
-      - libopenjp2-7
       - libopenmpt0
       - libopus0
-      - libpulse0
-      - librsvg2-2
       - librubberband2
       - libsdl2-2.0-0
       - libshine3
@@ -316,9 +309,6 @@ parts:
       - libusb-1.0-0
       - libv4l-0
       - libv4l2rds0
-      - libva-drm2
-      - libva-glx2
-      - libva-wayland2
       - libvdpau-va-gl1
       - libvo-amrwbenc0
       - libvorbis0a
@@ -326,14 +316,9 @@ parts:
       - libvpx7
       - libvulkan1
       - libwavpack1
-      - libwebp7
-      - libwebpmux3
       - libx265-199
-      - libx11-6
       - libxau6
       - libxdmcp6
-      - libxext6
-      - libxml2
       - libxv1
       - libxvidcore4
       - libxxhash0
@@ -359,4 +344,7 @@ parts:
       - -usr/bin/X11
       - -usr/include/X11
       - -usr/lib/X11
-      
+      - -usr/lib/*/caca
+      - -usr/lib/*/dri
+      - -usr/lib/*/gdk*
+      - -usr/lib/*/pulseaudio
