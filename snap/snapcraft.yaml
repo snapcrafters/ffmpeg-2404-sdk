@@ -320,6 +320,7 @@ parts:
       - libvulkan1
       - libx265-199
       - libxau6
+      - libxcb-shape0
       - libxdmcp6
       - libxv1
       - libxvidcore4
@@ -393,6 +394,13 @@ parts:
       - -usr/lib/*/libwebp*
       - -usr/lib/*/libX11*
       - -usr/lib/*/libXau*
-      - -usr/lib/*/libxcb*
+      - -usr/lib/*/libxcb.so*
+      - -usr/lib/*/libxcb-shm.so*
+      - -usr/lib/*/libxcb-glx.so*
+      - -usr/lib/*/libxcb-dri*.so*
+      - -usr/lib/*/libxcb-r*.so*
+      - -usr/lib/*/libxcb-sync.so*
+      - -usr/lib/*/libxcb-x*.so*
+      - -usr/lib/*/libxcb-p*.so*
       - -usr/lib/*/libX*
       - -usr/lib/*/libxkb*
