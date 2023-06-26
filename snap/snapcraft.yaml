@@ -392,8 +392,8 @@ parts:
       - -usr/lib/*/libvpx*
       - -usr/lib/*/libwayland*
       - -usr/lib/*/libwebp*
-      - -usr/lib/*/libX11*
-      - -usr/lib/*/libXau*
+      #- -usr/lib/*/libX11*
+      #- -usr/lib/*/libXau*
       - -usr/lib/*/libxcb.so*
       - -usr/lib/*/libxcb-shm.so*
       - -usr/lib/*/libxcb-glx.so*
