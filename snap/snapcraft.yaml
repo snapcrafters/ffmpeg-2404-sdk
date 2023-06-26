@@ -267,6 +267,8 @@ parts:
   prefix-fix:
     after: [ ffmpeg ]
     plugin: nil
+    build-packages:
+      - execstack
     override-prime: |
       set -eux
       for PC in $(find . -path "*/pkgconfig/*.pc")
@@ -276,6 +278,9 @@ parts:
         sed -i 's#exec_prefix=/usr#exec_prefix=${prefix}#' $PC
         sed -i 's#includedir=/usr#includedir=${prefix}#' $PC
       done
+      if [$CRAFT_ARCH_TRIPLET == armhf]; then
+        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libx264.so.164
+      fi
 
   deps:
     after: [ ffmpeg, prefix-fix ]
