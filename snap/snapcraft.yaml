@@ -260,11 +260,9 @@ parts:
 
       make -j $(nproc)
       make DESTDIR="$CRAFT_PART_INSTALL" install
-    #prime:
-    #  - -usr/include
-    #  - -usr/lib/pkgconfig
-    #  - -usr/share/ffmpeg/examples
-    #  - -usr/lib/$CRAFT_ARCH_TRIPLET/libx264.so*
+    prime:
+      - -usr/share
+
 
   prefix-fix:
     after: [ ffmpeg ]
