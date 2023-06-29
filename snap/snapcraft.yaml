@@ -392,8 +392,15 @@ parts:
       - -usr/lib/*/libvpx*
       - -usr/lib/*/libwayland*
       - -usr/lib/*/libwebp*
-      #- -usr/lib/*/libX11*
-      #- -usr/lib/*/libXau*
+      - -usr/lib/*/libX11*
+      - -usr/lib/*/libXau*
+      - -usr/lib/*/libXc*
+      - -usr/lib/*/libXd*
+      - -usr/lib/*/libXe*
+      - -usr/lib/*/libXf*
+      - -usr/lib/*/libXi*
+      - -usr/lib/*/libXr*
+      - -usr/lib/*/libXx*
       - -usr/lib/*/libxcb.so*
       - -usr/lib/*/libxcb-shm.so*
       - -usr/lib/*/libxcb-glx.so*
@@ -402,5 +409,4 @@ parts:
       - -usr/lib/*/libxcb-sync.so*
       - -usr/lib/*/libxcb-x*.so*
       - -usr/lib/*/libxcb-p*.so*
-      #- -usr/lib/*/libX
       - -usr/lib/*/libxkb*
