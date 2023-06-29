@@ -15,6 +15,12 @@ grade: stable
 confinement: strict
 compression: lzo
 
+lint:
+  ignore:
+    - classic
+    - library:
+      - *
+
 parts:
   nv-codec-headers:
     plugin: make
