@@ -19,7 +19,7 @@ lint:
   ignore:
     - classic
     - library:
-      - *
+      - usr/lib/*
 
 parts:
   nv-codec-headers:
