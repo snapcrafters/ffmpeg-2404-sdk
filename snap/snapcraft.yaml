@@ -200,7 +200,6 @@ parts:
       --disable-static \
       --enable-libaom \
       --enable-avisynth \
-      --enable-chromaprint \
       --enable-libdav1d \
       --enable-ffplay \
       --enable-gnutls \
