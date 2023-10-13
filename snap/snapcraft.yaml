@@ -116,7 +116,6 @@ parts:
       - libbz2-dev
       - libcaca-dev
       - libcdio-paranoia-dev
-      - libchromaprint-dev
       - libcodec2-dev
       - libdc1394-dev
       - libdrm-dev
@@ -298,7 +297,6 @@ parts:
       - libbluray2
       - libbs2b0
       - libcdio-paranoia2
-      - libchromaprint1
       - libcodec2-1.0
       - libdc1394-25
       - libflite1
