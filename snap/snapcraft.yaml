@@ -357,9 +357,7 @@ parts:
       - -usr/lib/*/caca
       - -usr/lib/*/dri
       - -usr/lib/*/gdk*
-      - -usr/lib/*/pulseaudio
-      - -usr/lib/*/libavcodec.so.58
-      - -usr/lib/*/libavcodec.so.58*      
+      - -usr/lib/*/pulseaudio    
       - -usr/lib/*/libv4l
       - -usr/lib/*/libv4lc*
       - -usr/lib/*/libv4l1*
