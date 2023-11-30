@@ -106,7 +106,7 @@ parts:
       - zimg
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
-    source-branch: 'release/6.0'
+    source-branch: 'release/6.1'
     build-packages:
       - libaom-dev
       - flite1-dev
