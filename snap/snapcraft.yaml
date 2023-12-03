@@ -14,29 +14,26 @@ base: core22
 grade: stable
 confinement: strict
 compression: lzo
-
 lint:
   ignore:
     - classic
     - library:
-      - usr/lib/*
-      - usr/bin/*
-
+        - usr/lib/*
+        - usr/bin/*
 parts:
   nv-codec-headers:
     plugin: make
     source: https://github.com/FFmpeg/nv-codec-headers.git
-    source-tag: 'n12.0.16.0'
+    source-tag: 'n12.1.14.0'
     make-parameters:
       - PREFIX=/usr
       - LIBDIR=lib/$CRAFT_ARCH_TRIPLET
     build-packages:
       - pkg-config
-
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
-    source-tag: 'v1.5.1'
+    source-tag: 'v1.5.3'
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -46,17 +43,15 @@ parts:
       - -DENABLE_STATIC=OFF
     build-packages:
       - libssl-dev
-
   avisynth-plus:
     plugin: cmake
     source: https://github.com/AviSynth/AviSynthPlus.git
-    source-tag: 'v3.7.2'
+    source-tag: 'v3.7.3'
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_C_FLAGS_RELEASE=-s
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
-
   x264:
     plugin: autotools
     source: https://code.videolan.org/videolan/x264.git
@@ -70,11 +65,10 @@ parts:
     build-packages:
       - libva-dev
       - nasm
-
   dav1d:
     plugin: meson
     source: https://code.videolan.org/videolan/dav1d.git
-    source-tag: '1.2.0'
+    source-tag: '1.3.0'
     meson-parameters:
       - --prefix=/usr
       - --buildtype=release
@@ -85,17 +79,15 @@ parts:
       - libxxhash-dev
       - meson
       - ninja-build
-
   zimg:
     plugin: autotools
     source: https://github.com/sekrit-twc/zimg.git
-    source-tag: 'release-3.0.4'
+    source-tag: 'release-3.0.5'
     autotools-configure-parameters:
       - --prefix=/usr
       - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
     prime:
       - -usr/share
-
   ffmpeg:
     after:
       - avisynth-plus
@@ -168,13 +160,12 @@ parts:
       - pkg-config
       - yasm
       #- on amd64:
-        #- libcrystalhd-dev
-        # TODO: re-enable `nvidia-cuda*` if we can determine that we can ship non-free
-        # - nvidia-cuda-dev
-        # - nvidia-cuda-toolkit
+      #- libcrystalhd-dev
+      # TODO: re-enable `nvidia-cuda*` if we can determine that we can ship non-free
+      # - nvidia-cuda-dev
+      # - nvidia-cuda-toolkit
       #- on i386:
-        #- libcrystalhd-dev
-
+      #- libcrystalhd-dev
     override-build: |
       if [ "$CRAFT_TARGET_ARCH" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
@@ -267,10 +258,9 @@ parts:
       make DESTDIR="$CRAFT_PART_INSTALL" install
     prime:
       - -usr/share
-
-
+    source-tag: release/6.1
   prefix-fix:
-    after: [ ffmpeg ]
+    after: [ffmpeg]
     plugin: nil
     build-packages:
       - execstack
@@ -286,9 +276,8 @@ parts:
       if [ "$CRAFT_ARCH_TRIPLET" == "arm-linux-gnueabihf" ]; then
         execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libx264.so.164
       fi
-
   deps:
-    after: [ ffmpeg, prefix-fix ]
+    after: [ffmpeg, prefix-fix]
     plugin: nil
     stage-packages:
       - libaom3
@@ -334,15 +323,15 @@ parts:
       - mesa-vdpau-drivers
       - ocl-icd-libopencl1
       - on amd64:
-        - mesa-va-drivers
-        #- libcrystalhd3
-        # TODO: re-enable `libnpp*` if we can determine that we can ship non-free
-        # - libnppig10
-        # - libnppicc10
-        # - libnppidei10
+          - mesa-va-drivers
+          #- libcrystalhd3
+          # TODO: re-enable `libnpp*` if we can determine that we can ship non-free
+          # - libnppig10
+          # - libnppicc10
+          # - libnppidei10
       - on i386:
-        - mesa-va-drivers
-        #- libcrystalhd3
+          - mesa-va-drivers
+          #- libcrystalhd3
     prime:
       - -usr/share
       - -etc
@@ -354,7 +343,7 @@ parts:
       - -usr/lib/*/caca
       - -usr/lib/*/dri
       - -usr/lib/*/gdk*
-      - -usr/lib/*/pulseaudio    
+      - -usr/lib/*/pulseaudio
       - -usr/lib/*/libv4l
       - -usr/lib/*/libv4lc*
       - -usr/lib/*/libv4l1*
