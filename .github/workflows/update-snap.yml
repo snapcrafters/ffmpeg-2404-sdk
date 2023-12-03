@@ -16,6 +16,7 @@ jobs:
     name: Sync version with upstream
     environment: "Candidate Branch"
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/ffmpeg-2204-sdk'
     steps:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
