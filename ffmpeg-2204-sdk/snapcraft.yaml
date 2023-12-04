@@ -25,15 +25,18 @@ parts:
     plugin: make
     source: https://github.com/FFmpeg/nv-codec-headers.git
     source-tag: 'n12.1.14.0'
+    source-depth: 1
     make-parameters:
       - PREFIX=/usr
       - LIBDIR=lib/$CRAFT_ARCH_TRIPLET
     build-packages:
       - pkg-config
+
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
     source-tag: 'v1.5.3'
+    source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -43,19 +46,23 @@ parts:
       - -DENABLE_STATIC=OFF
     build-packages:
       - libssl-dev
+
   avisynth-plus:
     plugin: cmake
     source: https://github.com/AviSynth/AviSynthPlus.git
     source-tag: 'v3.7.3'
+    source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_C_FLAGS_RELEASE=-s
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
+
   x264:
     plugin: autotools
     source: https://code.videolan.org/videolan/x264.git
     source-branch: 'stable'
+    source-depth: 1
     autotools-configure-parameters:
       - --prefix=/usr
       - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
@@ -65,10 +72,12 @@ parts:
     build-packages:
       - libva-dev
       - nasm
+        
   dav1d:
     plugin: meson
     source: https://code.videolan.org/videolan/dav1d.git
     source-tag: '1.3.0'
+    source-depth: 1
     meson-parameters:
       - --prefix=/usr
       - --buildtype=release
@@ -79,15 +88,18 @@ parts:
       - libxxhash-dev
       - meson
       - ninja-build
+
   zimg:
     plugin: autotools
     source: https://github.com/sekrit-twc/zimg.git
     source-tag: 'release-3.0.5'
+    source-depth: 1
     autotools-configure-parameters:
       - --prefix=/usr
       - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
     prime:
       - -usr/share
+
   ffmpeg:
     after:
       - avisynth-plus
@@ -99,6 +111,7 @@ parts:
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
     source-branch: 'release/6.1'
+    source-depth: 1
     build-packages:
       - libaom-dev
       - flite1-dev
