@@ -31,7 +31,6 @@ parts:
       - LIBDIR=lib/$CRAFT_ARCH_TRIPLET
     build-packages:
       - pkg-config
-
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
@@ -46,7 +45,6 @@ parts:
       - -DENABLE_STATIC=OFF
     build-packages:
       - libssl-dev
-
   avisynth-plus:
     plugin: cmake
     source: https://github.com/AviSynth/AviSynthPlus.git
@@ -57,7 +55,6 @@ parts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_C_FLAGS_RELEASE=-s
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
-
   x264:
     plugin: autotools
     source: https://code.videolan.org/videolan/x264.git
@@ -72,7 +69,6 @@ parts:
     build-packages:
       - libva-dev
       - nasm
-        
   dav1d:
     plugin: meson
     source: https://code.videolan.org/videolan/dav1d.git
@@ -88,7 +84,6 @@ parts:
       - libxxhash-dev
       - meson
       - ninja-build
-
   zimg:
     plugin: autotools
     source: https://github.com/sekrit-twc/zimg.git
@@ -99,7 +94,6 @@ parts:
       - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
     prime:
       - -usr/share
-
   ffmpeg:
     after:
       - avisynth-plus
