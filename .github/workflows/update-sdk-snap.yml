@@ -1,4 +1,4 @@
-name: Update
+name: Update SDK Snap
 
 on:
   # Runs at 10:00 UTC every day
@@ -14,7 +14,7 @@ concurrency:
 jobs:
   sync:
     name: Sync version with upstream
-    environment: "Candidate Branch"
+    environment: "2204 Branch"
     runs-on: ubuntu-latest
     steps:
       - name: Sync version with upstream
@@ -22,6 +22,7 @@ jobs:
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
           snapcraft-project-root: ffmpeg-2204-sdk
+          branch: '2204'
           update-script: |
             NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git     | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.nv-codec-headers.source-tag = \"$NV_CODEC_HEADERS_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml

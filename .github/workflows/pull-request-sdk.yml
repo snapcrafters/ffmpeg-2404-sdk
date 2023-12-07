@@ -1,0 +1,21 @@
+name: Pull Request for ffmpeg-2204-sdk
+
+on:
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - "ffmpeg-2204-sdk/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: 🧪 Build snap on amd64
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧪 Build snap on amd64
+        uses: snapcrafters/ci/test-snap-build@main
+        with:
+          snapcraft-project-root: ffmpeg-2204-sdk

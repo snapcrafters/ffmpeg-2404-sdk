@@ -265,7 +265,6 @@ parts:
       make DESTDIR="$CRAFT_PART_INSTALL" install
     prime:
       - -usr/share
-    source-tag: release/6.1
   prefix-fix:
     after: [ffmpeg]
     plugin: nil
