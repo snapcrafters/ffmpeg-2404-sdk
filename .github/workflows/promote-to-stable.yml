@@ -23,3 +23,36 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           store-token: ${{ secrets.SNAP_STORE_STABLE }}
+          snapcraft-project-root: "ffmpeg-2204-sdk"
+
+  update-content-snap:
+    name: Update the content snap
+    needs: [ release-sdk, get-architectures ]
+    environment: "2204 Branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update the content snap
+        uses: snapcrafters/ci/sync-version@main
+        with:
+          token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
+          snapcraft-project-root: "ffmpeg-2204"
+          update-script: |
+            sed -i 's/^\(- ffmpeg-2204-sdk\/latest\/\)\(.*\)$/\1stable/' ffmpeg-2204/snapcraft.yaml
+
+  release-content:
+    name: 🚢 Release to latest/stable
+    needs: get-architectures
+    runs-on: ubuntu-latest
+    environment: "2204 Branch"
+    strategy:
+      matrix:
+        architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
+    steps:
+      - name: 🚢 Release to latest/stable
+        uses: snapcrafters/ci/release-to-candidate@main
+        with:
+          architecture: ${{ matrix.architecture }}
+          launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
+          store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
+          channel: "stable"
+          snapcraft-project-root: "ffmpeg-2204"

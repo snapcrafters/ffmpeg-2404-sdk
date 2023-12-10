@@ -26,8 +26,8 @@ jobs:
         id: get-architectures
         uses: snapcrafters/ci/get-architectures@main
 
-  release:
-    name: 🚢 Release to latest/candidate
+  release-sdk:
+    name: 🚢 Release to latest/edge
     needs: get-architectures
     runs-on: ubuntu-latest
     environment: "2204 Branch"
@@ -41,7 +41,27 @@ jobs:
           architecture: ${{ matrix.architecture }}
           launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
           store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
-  
+          channel: "edge"
+          snapcraft-project-root: "ffmpeg-2204-sdk"
+
+  release-content:
+    name: 🚢 Release to latest/edge
+    needs: [ get-architectures, release-sdk ]
+    runs-on: ubuntu-latest
+    environment: "2204 Branch"
+    strategy:
+      matrix:
+        architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
+    steps:
+      - name: 🚢 Release to latest/candidate
+        uses: snapcrafters/ci/release-to-candidate@main
+        with:
+          architecture: ${{ matrix.architecture }}
+          launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
+          store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
+          channel: "edge"
+          snapcraft-project-root: "ffmpeg-2204"
+
   call-for-testing:
     name: 📣 Create call for testing
     needs: [release, get-architectures]
@@ -56,16 +76,3 @@ jobs:
         with:
           architectures: ${{ needs.get-architectures.outputs.architectures }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  screenshots:
-    name: 📸 Gather screenshots
-    needs: call-for-testing
-    environment: "2204 Branch"
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📸 Gather screenshots
-        uses: snapcrafters/ci/get-screenshots@main
-        with:
-          issue-number: ${{ needs.call-for-testing.outputs.issue-number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          screenshots-token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
