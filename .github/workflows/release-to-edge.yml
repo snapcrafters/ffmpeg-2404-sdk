@@ -29,7 +29,7 @@ jobs:
           snapcraft-project-root: "ffmpeg-2204-sdk"
 
   release-sdk:
-    name: 🚢 Release to latest/edge
+    name: 🚢 Release to latest/candidate
     needs: get-architectures
     runs-on: ubuntu-latest
     environment: "2204 Branch"
@@ -41,7 +41,7 @@ jobs:
         uses: snapcrafters/ci/release-to-candidate@main
         with:
           architecture: ${{ matrix.architecture }}
-          channel: "edge-${{ github.event.number }}"
+          channel: "candidate-${{ github.event.number }}"
           launchpad-token: ${{ secrets.LP_BUILD_SECRET }}          
           snapcraft-project-root: "ffmpeg-2204-sdk"
           store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
@@ -58,7 +58,7 @@ jobs:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
           snapcraft-project-root: "ffmpeg-2204"
           update-script: |
-            sed -i 's/^\(- ffmpeg-2204-sdk\/latest\/\)stable$/\1edge-${{ github.event.number }}/' ffmpeg-2204/snapcraft.yaml
+            sed -i 's/^\(- ffmpeg-2204-sdk\/latest\/\)stable$/\1candidate-${{ github.event.number }}/' ffmpeg-2204/snapcraft.yaml
 
   release-content:
     name: 🚢 Release to latest/edge
@@ -69,6 +69,10 @@ jobs:
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
+      - name: Checkout latest commit
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
       - name: 🚢 Release to latest/edge
         uses: snapcrafters/ci/release-to-candidate@main
         with:
