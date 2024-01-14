@@ -1,8 +1,10 @@
-name: Pull Request
+name: Pull Request for ffmpeg-2204-sdk
 
 on:
   pull_request:
     branches: [ "**" ]
+    paths:
+      - "ffmpeg-2204-sdk/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

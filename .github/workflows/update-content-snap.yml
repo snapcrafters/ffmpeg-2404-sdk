@@ -1,0 +1,30 @@
+name: Update Content Snap
+
+on:
+  workflow_run:
+    workflows: ["Release ffmpeg-2204-sdk to candidate", "Promote SDK to stable"]
+    types: [requested]
+    paths:
+      - "ffmpeg-2204/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Sync version with upstream
+    environment: "Candidate Branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync version with upstream
+        uses: snapcrafters/ci/sync-version@main
+        with:
+          token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
+          snapcraft-project-root: ffmpeg-2204-sdk
+          update-script: |
+            if [[ "${{ github.event.workflow_run.workflow.name }}" == "Release ffmpeg-2204-sdk to candidate" ]]; then
+            sed -i 's|ffmpeg-2204-sdk/latest/\*\*|ffmpeg-2204-sdk/latest/candidate|g' ffmpeg-2204/snapcraft.yaml
+            else
+            sed -i 's|ffmpeg-2204-sdk/latest/\*\*|ffmpeg-2204-sdk/latest/stable|g' ffmpeg-2204/snapcraft.yaml
+            fi
