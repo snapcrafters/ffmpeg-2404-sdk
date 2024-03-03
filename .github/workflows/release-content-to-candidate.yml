@@ -1,4 +1,4 @@
-name: Release ffmpeg-2204-sdk to candidate
+name: Release ffmpeg-2204-content to candidate
 
 on:
   # Run the workflow each time new commits are pushed to the candidate branch. 
