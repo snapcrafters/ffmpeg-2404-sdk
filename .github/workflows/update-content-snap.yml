@@ -6,6 +6,7 @@ on:
     types: [requested]
     paths:
       - "ffmpeg-2204/**"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
