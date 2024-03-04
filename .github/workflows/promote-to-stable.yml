@@ -26,8 +26,8 @@ jobs:
           store-token: ${{ secrets.SNAP_STORE_STABLE }}
           snapcraft-project-root: "ffmpeg-2204-sdk"
 
-  promote-sdk:
-    name: ⬆️ Promote SDK to stable
+  promote-content:
+    name: ⬆️ Promote Content to stable
     environment: "2204 Branch"
     runs-on: ubuntu-latest
     if: |
