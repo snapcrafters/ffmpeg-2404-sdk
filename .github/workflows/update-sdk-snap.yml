@@ -21,7 +21,6 @@ jobs:
         uses: snapcrafters/ci/sync-version@main
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
-          snapcraft-project-root: ffmpeg-2204-sdk
           branch: '2204'
           update-script: |
             NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git     | tail --lines=1 | cut --delimiter='/' --fields=3)
@@ -36,3 +35,5 @@ jobs:
             yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
             FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4)
             yq -i ".parts.ffmpeg.source-branch = \"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204/snapcraft.yaml
