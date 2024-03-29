@@ -1,10 +1,10 @@
 name: Release ffmpeg-2204 to candidate
 
 on:
-  # Run the workflow each time new commits are pushed to the candidate branch. 
-  push:
-    branches: [ "2204" ]
-    paths: 
+  workflow_run:
+    workflows: ["Release ffmpeg-2204-sdk to candidate"]
+    types: [completed]
+    paths:
       - "ffmpeg-2204/**"
   workflow_dispatch:
     

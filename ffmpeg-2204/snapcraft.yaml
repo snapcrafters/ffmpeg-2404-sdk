@@ -29,7 +29,7 @@ parts:
   ffmpeg-2204:
     plugin: nil
     stage-snaps:
-      - ffmpeg-2204-sdk/latest/stable
+      - ffmpeg-2204-sdk/latest/candidate
     prime:
       - -usr/include
       - -usr/lib/*/pkgconfig
