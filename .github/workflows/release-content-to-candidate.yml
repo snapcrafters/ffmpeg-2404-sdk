@@ -52,6 +52,7 @@ jobs:
           repo-token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
 
   call-for-testing:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
     name: 📣 Create call for testing
     needs: [release-content, get-architectures]
     environment: "2204 Branch"

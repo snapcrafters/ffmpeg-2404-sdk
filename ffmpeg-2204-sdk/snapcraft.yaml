@@ -9,7 +9,7 @@ name: ffmpeg-2204-sdk
 # committee, the community or a corporation.
 summary: SDK for ffmpeg-2204
 description: SDK to build ffmpeg-2204 content snap
-version: '6.1'
+version: 'release/7.0'
 base: core22
 grade: stable
 confinement: strict
@@ -160,7 +160,7 @@ parts:
       - libva
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
-    source-branch: 'release/6.1'
+    source-branch: 'release/7.0'
     source-depth: 1
     build-packages:
       - libaom-dev
