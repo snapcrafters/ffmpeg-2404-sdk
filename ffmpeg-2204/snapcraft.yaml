@@ -8,12 +8,10 @@ confinement: strict
 compression: lzo
 
 
-# lint:
-#   ignore:
-#     - classic
-#     - library:
-#       - usr/lib/*
-#       - usr/bin/*
+lint:
+  ignore:
+    - classic
+    - library
 
 architectures:
   - build-on: amd64
