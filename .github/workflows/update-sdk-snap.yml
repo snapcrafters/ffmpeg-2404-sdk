@@ -19,6 +19,7 @@ jobs:
     steps:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
+        id: sync-sdk-version
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
           branch: '2204'
@@ -36,8 +37,9 @@ jobs:
             yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
             FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4)
             yq -i ".parts.ffmpeg.source-branch = \"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
-            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
-            echo "ffmpeg-version=$FFMPEG_VERSION" >> "$GITHUB_OUTPUT"
+            ffmpeg_version=$(echo $FFMPEG_VERSION | cut -c 9-)
+            yq -i ".version=\"$ffmpeg_version\"" ffmpeg-2204-sdk/snapcraft.yaml
+            
 
   sync-content-version:
     needs: sync-sdk
@@ -48,9 +50,9 @@ jobs:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
         with:
-          ffmpeg_version: ${{ steps.sync-sdk.outputs.ffmpeg-version }}
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
           branch: '2204'
           snapcraft-project-root: "ffmpeg-2204"
           update-script: |
-            yq -i ".version=\"$ffmpeg_version\"" ffmpeg-2204/snapcraft.yaml
+            FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4 | cut --delimiter='/' --fields=2)
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204/snapcraft.yaml

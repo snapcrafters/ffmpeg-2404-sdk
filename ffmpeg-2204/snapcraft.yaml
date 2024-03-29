@@ -1,7 +1,7 @@
 name: ffmpeg-2204
 summary: ffmpeg content snap for core22
 description: FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata.
-version: '6.1'
+version: '7.0'
 base: core22
 grade: stable
 confinement: strict

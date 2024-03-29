@@ -9,7 +9,7 @@ name: ffmpeg-2204-sdk
 # committee, the community or a corporation.
 summary: SDK for ffmpeg-2204
 description: SDK to build ffmpeg-2204 content snap
-version: 'release/7.0'
+version: '7.0'
 base: core22
 grade: stable
 confinement: strict
@@ -27,7 +27,7 @@ parts:
   nv-codec-headers:
     plugin: make
     source: https://github.com/FFmpeg/nv-codec-headers.git
-    source-tag: 'n12.1.14.0'
+    source-tag: 'n12.2.72.0'
     source-depth: 1
     make-parameters:
       - PREFIX=/usr
