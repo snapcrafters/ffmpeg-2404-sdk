@@ -49,7 +49,7 @@ jobs:
           launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
           snapcraft-project-root: "ffmpeg-2204"
           store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
 
   call-for-testing:
     name: 📣 Create call for testing
