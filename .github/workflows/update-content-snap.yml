@@ -17,7 +17,7 @@ jobs:
     name: Sync version with upstream
     environment: "2204 Branch"
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }} 
     steps:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
@@ -26,7 +26,7 @@ jobs:
           snapcraft-project-root: ffmpeg-2204-sdk
           branch: '2204'
           update-script: |
-            if [[ "${{ github.event.workflow_run.workflow.name }}" == "Release ffmpeg-2204-sdk to candidate" ]]; then
+            if [[ "${{ github.event.workflow_run.workflow.name }}" == "Release ffmpeg-2204-sdk to candidate" || "${{ github.event_name}}" == "workflow_dispatch" ]]; then
             sed -i 's|ffmpeg-2204-sdk/latest/\*\*|ffmpeg-2204-sdk/latest/candidate|g' ffmpeg-2204/snapcraft.yaml
             else
             sed -i 's|ffmpeg-2204-sdk/latest/\*\*|ffmpeg-2204-sdk/latest/stable|g' ffmpeg-2204/snapcraft.yaml
