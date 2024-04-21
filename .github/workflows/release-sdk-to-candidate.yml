@@ -1,13 +1,12 @@
 name: Release ffmpeg-2204-sdk to candidate
 
 on:
-  # Run the workflow each time new commits are pushed to the candidate branch. 
+  # Run the workflow each time new commits are pushed to the candidate branch.
   push:
-    branches: [ "2204" ]
-    paths: 
+    branches: ["2204"]
+    paths:
       - "ffmpeg-2204-sdk/**"
   workflow_dispatch:
-    
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -41,7 +40,7 @@ jobs:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
       - name: 🚢 Release to latest/candidate
-        uses: soumyaDghosh/ci/release-to-candidate@main
+        uses: snapcrafters/ci/release-to-candidate@main
         with:
           architecture: ${{ matrix.architecture }}
           channel: "candidate"
