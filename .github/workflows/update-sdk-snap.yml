@@ -1,4 +1,4 @@
-name: Update
+name: Update SDK Snap
 
 on:
   # Runs at 10:00 UTC every day
@@ -12,16 +12,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  sync:
-    name: Sync version with upstream
-    environment: "Candidate Branch"
+  sync-sdk:
+    name: Sync version of the SDK snap with upstream
+    environment: "2204 Branch"
     runs-on: ubuntu-latest
     steps:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
+        id: sync-sdk-version
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
-          snapcraft-project-root: ffmpeg-2204-sdk
+          branch: '2204'
+          snapcraft-project-root: 'ffmpeg-2204-sdk'
           update-script: |
             NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git     | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.nv-codec-headers.source-tag = \"$NV_CODEC_HEADERS_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
@@ -35,3 +37,22 @@ jobs:
             yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
             FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4)
             yq -i ".parts.ffmpeg.source-branch = \"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            ffmpeg_version=$(echo $FFMPEG_VERSION | cut -c 9-)
+            yq -i ".version=\"$ffmpeg_version\"" ffmpeg-2204-sdk/snapcraft.yaml
+            
+
+  sync-content-version:
+    needs: sync-sdk
+    name: Sync version of the content snap with upstream
+    environment: "2204 Branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync version with upstream
+        uses: snapcrafters/ci/sync-version@main
+        with:
+          token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
+          branch: '2204'
+          snapcraft-project-root: "ffmpeg-2204"
+          update-script: |
+            FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4 | cut --delimiter='/' --fields=2)
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204/snapcraft.yaml

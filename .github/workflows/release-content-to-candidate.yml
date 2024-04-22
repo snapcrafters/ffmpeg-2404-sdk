@@ -1,0 +1,69 @@
+name: Release ffmpeg-2204 to candidate
+
+on:
+  workflow_run:
+    workflows: ["Release ffmpeg-2204-sdk to candidate"]
+    types: [completed]
+    paths:
+      - "ffmpeg-2204/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  get-architectures:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    name: 🖥 Get snap architectures
+    runs-on: ubuntu-latest
+    outputs:
+      architectures: ${{ steps.get-architectures.outputs.architectures }}
+      architectures-list: ${{ steps.get-architectures.outputs.architectures-list }}
+    steps:
+      - name: 🖥 Get snap architectures
+        id: get-architectures
+        uses: snapcrafters/ci/get-architectures@main
+        with:
+          snapcraft-project-root: "ffmpeg-2204"
+
+  release-content:
+    name: 🚢 Release to latest/candidate
+    needs: get-architectures
+    runs-on: ubuntu-latest
+    environment: "2204 Branch"
+    strategy:
+      matrix:
+        architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
+    steps:
+      - name: 🚢 Release to latest/candidate
+        id: build-amd64
+        uses: snapcrafters/ci/release-to-candidate@main
+        with:
+          architecture: ${{ matrix.architecture }}
+          channel: "candidate"
+          launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
+          snapcraft-project-root: "ffmpeg-2204"
+          store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
+          repo-token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
+
+  call-for-testing:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    name: 📣 Create call for testing
+    needs: [release-content, get-architectures]
+    environment: "2204 Branch"
+    runs-on: ubuntu-latest
+    outputs:
+      issue-number: ${{ steps.issue.outputs.issue-number }}
+    steps:
+      - name: 📣 Create call for testing
+        id: issue
+        uses: snapcrafters/ci/call-for-testing@main
+        with:
+          snapcraft-project-root: "ffmpeg-2204"
+          architectures: ${{ needs.get-architectures.outputs.architectures }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
