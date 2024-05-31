@@ -6,12 +6,23 @@
 
 <p align="center"><i>"FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata."</i></p>
 
-<p align="center">
-<a href="https://snapcraft.io/signal-desktop"><img src="https://snapcraft.io/signal-desktop/badge.svg" alt="Snap Status"></a>
-<a href="https://github.com/snapcrafters/signal-desktop/actions/workflows/sync-version-with-upstream.yml"><img src="https://github.com/snapcrafters/signal-desktop/actions/workflows/sync-version-with-upstream.yml/badge.svg"></a>
-<a href="https://github.com/snapcrafters/signal-desktop/actions/workflows/release-to-candidate.yaml"><img src="https://github.com/snapcrafters/signal-desktop/actions/workflows/release-to-candidate.yaml/badge.svg"></a>
-<a href="https://github.com/snapcrafters/signal-desktop/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/signal-desktop/actions/workflows/promote-to-stable.yml/badge.svg"></a>
-</p>
+<b>FFmpeg SDK Status</b>
+<ul>
+<a href="https://snapcraft.io/ffmpeg-2204-sdk"><img src="https://snapcraft.io/ffmpeg-2204-sdk/badge.svg" alt="FFmpeg SDK Status"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
+
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yml/badge.svg"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml/badge.svg"></a>
+</ul>
+
+<b>FFmpeg Content Snap Status</b>
+<ul>
+<a href="https://snapcraft.io/ffmpeg-2204"><img src="https://snapcraft.io/ffmpeg-2204/badge.svg" alt="FFmpeg Content Snap Status"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yml/badge.svg"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml/badge.svg"></a>
+</ul>
+
 
 ## Uses
 
