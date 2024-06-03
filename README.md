@@ -34,9 +34,9 @@ While building your app as a snap, you need to add these environment variables i
 
 ```yaml
 build-environment:
-  - PKG_CONFIG_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig
-  - LD_LIBRARY_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
-  - PATH: /snap/ffmpeg-2204-sdk/current/usr/bin:$PATH
+  - PKG_CONFIG_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+  - LD_LIBRARY_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+  - PATH: /snap/ffmpeg-2204-sdk/current/usr/bin${PATH:+:$PATH}
 ```
 
 ### Runtime
