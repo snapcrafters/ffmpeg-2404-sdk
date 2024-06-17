@@ -16,7 +16,7 @@ jobs:
     if: |
       ( !github.event.issue.pull_request )
       && contains(github.event.comment.body, '/promote ')
-      && contains(github.event.issue.body, '`ffmpeg-2204 `')
+      && contains(github.event.issue.body, '`ffmpeg-2204`')
       && contains(github.event.*.labels.*.name, 'testing')
     steps:
       - name: ⬆️ Promote to stable
