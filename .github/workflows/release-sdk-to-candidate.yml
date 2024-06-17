@@ -1,11 +1,11 @@
-name: Release ffmpeg-2204-sdk to candidate
+name: Release ffmpeg-2404-sdk to candidate
 
 on:
   # Run the workflow each time new commits are pushed to the candidate branch.
   push:
-    branches: ["2204"]
+    branches: ["2404"]
     paths:
-      - "ffmpeg-2204-sdk/**"
+      - "ffmpeg-2404-sdk/**"
   workflow_dispatch:
 
 concurrency:
@@ -28,32 +28,33 @@ jobs:
         id: get-architectures
         uses: snapcrafters/ci/get-architectures@main
         with:
-          snapcraft-project-root: "ffmpeg-2204-sdk"
+          snapcraft-project-root: "ffmpeg-2404-sdk"
 
   release-sdk:
     name: 🚢 Release to latest/candidate
     needs: get-architectures
     runs-on: ubuntu-latest
-    environment: "2204 Branch"
+    environment: "2404 Branch"
     strategy:
       fail-fast: false
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
       - name: 🚢 Release to latest/candidate
-        uses: snapcrafters/ci/release-to-candidate@main
+        uses: soumyaDghosh/ci/release-to-candidate@main
         with:
           architecture: ${{ matrix.architecture }}
           launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
           multi-snap: true
-          snapcraft-project-root: "ffmpeg-2204-sdk"
+          snapcraft-project-root: "ffmpeg-2404-sdk"
+          snapcraft-channel: "latest/candidate"
           store-token: ${{ secrets.SNAP_STORE_CANDIDATE }}
           repo-token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
 
   call-for-testing:
     name: 📣 Create call for testing
     needs: [release-sdk, get-architectures]
-    environment: "2204 Branch"
+    environment: "2404 Branch"
     runs-on: ubuntu-latest
     outputs:
       issue-number: ${{ steps.issue.outputs.issue-number }}
@@ -62,6 +63,6 @@ jobs:
         id: issue
         uses: snapcrafters/ci/call-for-testing@main
         with:
-          snapcraft-project-root: "ffmpeg-2204-sdk"
+          snapcraft-project-root: "ffmpeg-2404-sdk"
           architectures: ${{ needs.get-architectures.outputs.architectures }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

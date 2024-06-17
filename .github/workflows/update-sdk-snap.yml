@@ -14,7 +14,7 @@ concurrency:
 jobs:
   sync-sdk:
     name: Sync version of the SDK snap with upstream
-    environment: "2204 Branch"
+    environment: "2404 Branch"
     runs-on: ubuntu-latest
     steps:
       - name: Sync version with upstream
@@ -22,37 +22,34 @@ jobs:
         id: sync-sdk-version
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
-          branch: '2204'
-          snapcraft-project-root: 'ffmpeg-2204-sdk'
+          branch: '2404'
+          snapcraft-project-root: 'ffmpeg-2404-sdk'
           update-script: |
             NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git     | tail --lines=1 | cut --delimiter='/' --fields=3)
-            yq -i ".parts.nv-codec-headers.source-tag = \"$NV_CODEC_HEADERS_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".parts.nv-codec-headers.source-tag = \"$NV_CODEC_HEADERS_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             SRT_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/Haivision/srt.git | tail --lines=1 | cut --delimiter='/' --fields=3)
-            yq -i ".parts.srt.source-tag = \"$SRT_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".parts.srt.source-tag = \"$SRT_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             AVISYNTH_PLUS_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/AviSynth/AviSynthPlus.git | tail --lines=1 | cut --delimiter='/' --fields=3)
-            yq -i ".parts.avisynth-plus.source-tag = \"$AVISYNTH_PLUS_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".parts.avisynth-plus.source-tag = \"$AVISYNTH_PLUS_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             DAV1D_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://code.videolan.org/videolan/dav1d.git | tail --lines=1 | cut --delimiter='/' --fields=3)
-            yq -i ".parts.dav1d.source-tag = \"$DAV1D_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
+            yq -i ".parts.dav1d.source-tag = \"$DAV1D_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             ZIMG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/sekrit-twc/zimg.git | tail --lines=1 | cut --delimiter='/' --fields=3)
-            yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
-            FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4)
-            yq -i ".parts.ffmpeg.source-branch = \"$FFMPEG_VERSION\"" ffmpeg-2204-sdk/snapcraft.yaml
-            ffmpeg_version=$(echo $FFMPEG_VERSION | cut -c 9-)
-            yq -i ".version=\"$ffmpeg_version\"" ffmpeg-2204-sdk/snapcraft.yaml
-            
+            yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
+            FFMPEG_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg.git | awk '{print $2}' | sed 's/refs\/tags\///' | grep -v '^v' | grep -v '^ffmpeg' | grep -v '\-dev' | tail --lines=1 | cut -c 2-)
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
 
   sync-content-version:
     needs: sync-sdk
     name: Sync version of the content snap with upstream
-    environment: "2204 Branch"
+    environment: "2404 Branch"
     runs-on: ubuntu-latest
     steps:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main
         with:
           token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
-          branch: '2204'
-          snapcraft-project-root: "ffmpeg-2204"
+          branch: '2404'
+          snapcraft-project-root: "ffmpeg-2404"
           update-script: |
-            FFMPEG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --heads https://git.videolan.org/git/ffmpeg.git | tail --lines=1 | cut --delimiter='/' --fields=3,4 | cut --delimiter='/' --fields=2)
-            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2204/snapcraft.yaml
+            FFMPEG_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg.git | awk '{print $2}' | sed 's/refs\/tags\///' | grep -v '^v' | grep -v '^ffmpeg' | grep -v '\-dev' | tail --lines=1 | cut -c 2-)
+            yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2404/snapcraft.yaml

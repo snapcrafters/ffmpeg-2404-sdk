@@ -1,40 +1,40 @@
-name: ffmpeg-2204
+name: ffmpeg-2404
 title: FFmpeg Library Content Snap
 summary: ffmpeg content snap for core22
 description: FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata.
-version: '7.0'
-base: core22
+version: '7.0.1'
+base: core24
 grade: stable
 confinement: strict
 compression: lzo
-license: MIT & LGPL v2.1 or later & GPL-2.0 & GPL-3.0
+license: MIT
 contact: soumyadeepghosh2004+ffmpeg@zohomail.in
-source-code:
-  - https://github.com/FFmpeg/FFmpeg
-  - https://git.ffmpeg.org/ffmpeg.git
-  - https://github.com/snapcrafters/ffmpeg-sdk
-website:
-  - https://snapcrafters.org/
+# source-code:
+#   - https://github.com/FFmpeg/FFmpeg
+#   - https://git.ffmpeg.org/ffmpeg.git
+#   - https://github.com/snapcrafters/ffmpeg-sdk
+# website:
+#   - https://snapcrafters.org/
 issues: https://github.com/snapcrafters/ffmpeg-sdk/issues
 # lint:
 #   ignore:
 #     - classic
 #     - library
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
-  - build-on: ppc64el
+platforms:
+  amd64:
+  arm64:
+  armhf:
+  ppc64el:
 slots:
-  ffmpeg-2204:
+  ffmpeg-2404:
     interface: content
     read:
       - /
 parts:
-  ffmpeg-2204:
+  ffmpeg-2404:
     plugin: nil
     stage-snaps:
-      - ffmpeg-2204-sdk/latest/candidate
+      - ffmpeg-2404-sdk/latest/candidate
     prime:
       - -usr/include
       - -usr/lib/*/pkgconfig

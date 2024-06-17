@@ -1,31 +1,31 @@
-name: ffmpeg-2204-sdk
+name: ffmpeg-2404-sdk
 title: FFmpeg SDK for Snaps
-summary: SDK for ffmpeg-2204
-description: SDK to build ffmpeg-2204 content snap
-version: '7.0'
-base: core22
+summary: SDK for ffmpeg-2404
+description: SDK to build ffmpeg-2404 content snap
+version: '7.0.1'
+base: core24
 grade: stable
 confinement: strict
 compression: lzo
-license: MIT & LGPL v2.1 or later & GPL-2.0 & GPL-3.0
+license: MIT
 contact: soumyadeepghosh2004+ffmpeg@zohomail.in
-source-code:
-  - https://github.com/FFmpeg/FFmpeg
-  - https://git.ffmpeg.org/ffmpeg.git
-  - https://github.com/snapcrafters/ffmpeg-sdk
-website:
-  - https://snapcrafters.org/
-  - https://ffmpeg.org
+# source-code:
+#   - https://github.com/FFmpeg/FFmpeg
+#   - https://git.ffmpeg.org/ffmpeg.git
+#   - https://github.com/snapcrafters/ffmpeg-sdk
+# website:
+#   - https://snapcrafters.org/
+#   - https://ffmpeg.org
 issues: https://github.com/snapcrafters/ffmpeg-sdk/issues
 # lint:
 #   ignore:
 #     - classic
 #     - library
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
-  - build-on: ppc64el
+platforms:
+  amd64:
+  arm64:
+  armhf:
+  ppc64el:
 parts:
   nv-codec-headers:
     plugin: make
@@ -34,7 +34,7 @@ parts:
     source-depth: 1
     make-parameters:
       - PREFIX=/usr
-      - LIBDIR=lib/$CRAFT_ARCH_TRIPLET
+      - LIBDIR=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
     build-packages:
       - pkg-config
   srt:
@@ -68,7 +68,7 @@ parts:
     source-depth: 1
     autotools-configure-parameters:
       - --prefix=/usr
-      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
+      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
       - --disable-cli
       - --enable-shared
       - --enable-strip
@@ -97,7 +97,7 @@ parts:
     source-depth: 1
     autotools-configure-parameters:
       - --prefix=/usr
-      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET}
+      - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
     prime:
       - -usr/share
   vulkan-headers:
@@ -163,7 +163,7 @@ parts:
       - libva
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
-    source-branch: 'release/7.0'
+    source-tag: 'n$SNAPCRAFT_PROJECT_VERSION'
     source-depth: 1
     build-packages:
       - libaom-dev
@@ -232,21 +232,21 @@ parts:
       #- on i386:
       #- libcrystalhd-dev
     override-build: |
-      if [ "$CRAFT_TARGET_ARCH" = "amd64" ]; then
+      if [ "$CRAFT_ARCH_BUILD_FOR" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
         EXTRA="--enable-vdpau --enable-nvenc --enable-cuvid"
-      elif [ "$CRAFT_TARGET_ARCH" = "i386" ]; then
+      elif [ "$CRAFT_ARCH_BUILD_FOR" = "i386" ]; then
         EXTRA="--enable-vdpau --enable-nvenc"
-      elif [ "$CRAFT_TARGET_ARCH" = "armhf" ]; then
+      elif [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
         EXTRA="--disable-vdpau --enable-neon"
-      elif [ "$CRAFT_TARGET_ARCH" = "arm64" ]; then
+      elif [ "$CRAFT_ARCH_BUILD_FOR" = "arm64" ]; then
         EXTRA="--disable-vdpau"
       else
         EXTRA=""
       fi
       ./configure \
       --prefix=/usr \
-      --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET} \
+      --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR} \
       --disable-debug \
       --disable-doc \
       --disable-htmlpages \
@@ -334,12 +334,12 @@ parts:
       set -eux
       for PC in $(find . -path "*/pkgconfig/*.pc")
       do
-        sed -i '1cprefix=/snap/ffmpeg-2204-sdk/current/usr' $PC
+        sed -i '1cprefix=/snap/ffmpeg-2404-sdk/current/usr' $PC
         sed -i 's#libdir=/usr#libdir=${prefix}#' $PC
         sed -i 's#exec_prefix=/usr#exec_prefix=${prefix}#' $PC
         sed -i 's#includedir=/usr#includedir=${prefix}#' $PC
       done
-      if [ "$CRAFT_ARCH_TRIPLET" == "arm-linux-gnueabihf" ]; then
+      if [ "$CRAFT_ARCH_TRIPLET_BUILD_FOR" == "arm-linux-gnueabihf" ]; then
         execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libx264.so.164
       fi
   deps:
@@ -350,8 +350,8 @@ parts:
       - libass9
       - libbluray2
       - libbs2b0
-      - libcdio-paranoia2
-      - libcodec2-1.0
+      - libcdio-paranoia2t64
+      - libcodec2-1.2
       - libdc1394-25
       - libflite1
       - libgme0
@@ -360,7 +360,7 @@ parts:
       - libopenal1
       - libopencore-amrnb0
       - libopencore-amrwb0
-      - libopenmpt0
+      - libopenmpt0t64
       - libopus0
       - librubberband2
       - libsdl2-2.0-0
@@ -368,14 +368,14 @@ parts:
       - libsnappy1v5
       - libsoxr0
       - libssh-gcrypt-4
-      - libtesseract4
+      - libtesseract5
       - libtwolame0
       - libusb-1.0-0
-      - libv4l-0
-      - libv4l2rds0
+      - libv4l-0t64
+      - libv4l2rds0t64
       - libvdpau-va-gl1
       - libvo-amrwbenc0
-      - libvpx7
+      - libvpx9
       - libx265-199
       - libxau6
       - libxcb-shape0
@@ -384,7 +384,7 @@ parts:
       - libxvidcore4
       - libxxhash0
       - libzmq5
-      - libzvbi0
+      - libzvbi0t64
       - mesa-vdpau-drivers
       - ocl-icd-libopencl1
       - on amd64:
@@ -445,6 +445,7 @@ parts:
       - -usr/lib/*/libtwolame*
       - -usr/lib/*/libva*
       - -usr/lib/*/libvpx*
+      - -usr/lib/*/libvulkan.so*
       - -usr/lib/*/libwayland*
       - -usr/lib/*/libwebp*
       - -usr/lib/*/libX11*
