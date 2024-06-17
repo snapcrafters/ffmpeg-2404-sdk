@@ -1,12 +1,5 @@
 name: ffmpeg-2204-sdk
-#adopt-info: ffmpeg-2204-sdk
-#summary: A complete solution to record, convert and stream audio and video.
-#description: |
-# FFmpeg is the leading multimedia framework, able to decode, encode,
-# transcode, mux, demux, stream, filter and play pretty much anything that
-# humans and machines have created. It supports the most obscure ancient formats
-# up to the cutting edge. No matter if they were designed by some standards
-# committee, the community or a corporation.
+title: FFmpeg SDK for Snaps
 summary: SDK for ffmpeg-2204
 description: SDK to build ffmpeg-2204 content snap
 version: '7.0'
@@ -14,6 +7,16 @@ base: core22
 grade: stable
 confinement: strict
 compression: lzo
+license: MIT & LGPL v2.1 or later & GPL-2.0 & GPL-3.0
+contact: soumyadeepghosh2004+ffmpeg@zohomail.in
+source-code:
+  - https://github.com/FFmpeg/FFmpeg
+  - https://git.ffmpeg.org/ffmpeg.git
+  - https://github.com/snapcrafters/ffmpeg-sdk
+website:
+  - https://snapcrafters.org/
+  - https://ffmpeg.org
+issues: https://github.com/snapcrafters/ffmpeg-sdk/issues
 # lint:
 #   ignore:
 #     - classic

@@ -1,4 +1,5 @@
 name: ffmpeg-2204
+title: FFmpeg Library Content Snap
 summary: ffmpeg content snap for core22
 description: FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata.
 version: '7.0'
@@ -6,6 +7,15 @@ base: core22
 grade: stable
 confinement: strict
 compression: lzo
+license: MIT & LGPL v2.1 or later & GPL-2.0 & GPL-3.0
+contact: soumyadeepghosh2004+ffmpeg@zohomail.in
+source-code:
+  - https://github.com/FFmpeg/FFmpeg
+  - https://git.ffmpeg.org/ffmpeg.git
+  - https://github.com/snapcrafters/ffmpeg-sdk
+website:
+  - https://snapcrafters.org/
+issues: https://github.com/snapcrafters/ffmpeg-sdk/issues
 # lint:
 #   ignore:
 #     - classic
