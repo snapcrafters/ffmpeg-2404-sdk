@@ -8,19 +8,19 @@ grade: stable
 confinement: strict
 compression: lzo
 license: MIT
-contact: soumyadeepghosh2004+ffmpeg@zohomail.in
-# source-code:
-#   - https://github.com/FFmpeg/FFmpeg
-#   - https://git.ffmpeg.org/ffmpeg.git
-#   - https://github.com/snapcrafters/ffmpeg-sdk
-# website:
-#   - https://snapcrafters.org/
-#   - https://ffmpeg.org
+contact: soumyadghosh+ffmpeg@ubuntu.com
+source-code:
+  - https://github.com/FFmpeg/FFmpeg
+  - https://git.ffmpeg.org/ffmpeg.git
+  - https://github.com/snapcrafters/ffmpeg-sdk
+website:
+  - https://snapcrafters.org/
+  - https://ffmpeg.org
 issues: https://github.com/snapcrafters/ffmpeg-sdk/issues
-# lint:
-#   ignore:
-#     - classic
-#     - library
+lint:
+  ignore:
+    - classic
+    - library
 platforms:
   amd64:
   arm64:
@@ -159,8 +159,8 @@ parts:
       - srt
       - x264
       - zimg
-      - vulkan-loaders
       - libva
+      - vulkan-loaders
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
     source-tag: 'n$SNAPCRAFT_PROJECT_VERSION'
@@ -209,6 +209,7 @@ parts:
       - libvo-amrwbenc-dev
       - libvorbis-dev
       - libvpx-dev
+      - libvulkan-dev
       - libwavpack-dev
       - libwebp-dev
       - libx265-dev

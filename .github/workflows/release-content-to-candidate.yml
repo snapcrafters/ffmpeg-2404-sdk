@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows: ["Release ffmpeg-2404-sdk to candidate"]
     types: [completed]
+    branches: ["2404"]
     paths:
       - "ffmpeg-2404/**"
   workflow_dispatch:
@@ -43,7 +44,7 @@ jobs:
     steps:
       - name: 🚢 Release to latest/candidate
         id: build-amd64
-        uses: soumyaDghosh/ci/release-to-candidate@main
+        uses: snapcrafters/ci/release-to-candidate@main
         with:
           architecture: ${{ matrix.architecture }}
           launchpad-token: ${{ secrets.LP_BUILD_SECRET }}
