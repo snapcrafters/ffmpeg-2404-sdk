@@ -1,10 +1,10 @@
-name: Pull Request for ffmpeg-2204
+name: Pull Request for ffmpeg-2404
 
 on:
   pull_request:
     branches: [ "**" ]
     paths:
-      - "ffmpeg-2204/**"
+      - "ffmpeg-2404/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,4 +18,4 @@ jobs:
       - name: 🧪 Build snap on amd64
         uses: snapcrafters/ci/test-snap-build@main
         with:
-          snapcraft-project-root: ffmpeg-2204
+          snapcraft-project-root: ffmpeg-2404

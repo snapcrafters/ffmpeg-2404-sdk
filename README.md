@@ -8,7 +8,7 @@
 
 <b>FFmpeg SDK Status</b>
 <ul>
-<a href="https://snapcraft.io/ffmpeg-2204-sdk"><img src="https://snapcraft.io/ffmpeg-2204-sdk/badge.svg" alt="FFmpeg SDK Status"></a>
+<a href="https://snapcraft.io/ffmpeg-2404-sdk"><img src="https://snapcraft.io/ffmpeg-2404-sdk/badge.svg" alt="FFmpeg SDK Status"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
 
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yml/badge.svg"></a>
@@ -17,7 +17,7 @@
 
 <b>FFmpeg Content Snap Status</b>
 <ul>
-<a href="https://snapcraft.io/ffmpeg-2204"><img src="https://snapcraft.io/ffmpeg-2204/badge.svg" alt="FFmpeg Content Snap Status"></a>
+<a href="https://snapcraft.io/ffmpeg-2404"><img src="https://snapcraft.io/ffmpeg-2404/badge.svg" alt="FFmpeg Content Snap Status"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yml/badge.svg"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml/badge.svg"></a>
@@ -34,9 +34,9 @@ While building your app as a snap, you need to add these environment variables i
 
 ```yaml
 build-environment:
-  - PKG_CONFIG_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
-  - LD_LIBRARY_PATH: /snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-  - PATH: /snap/ffmpeg-2204-sdk/current/usr/bin${PATH:+:$PATH}
+  - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+  - LD_LIBRARY_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+  - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
 ```
 
 ### Runtime
@@ -46,10 +46,10 @@ To get the libraries at runtime, you need to connect the ffmpeg content snap to 
 For that you first need to define a plug for ffmpeg in the top level your `snapcraft.yaml`.
 ```yaml
 plugs:
-  ffmpeg-2204: # name of the plug
+  ffmpeg-2404: # name of the plug
     interface: content # interface of snapcraft
     target: ffmpeg-platform # mount point of the content snap
-    default-provider: ffmpeg-2204 # the default provider that'll provide this library
+    default-provider: ffmpeg-2404 # the default provider that'll provide this library
 ```
 Now in the apps part which needs to use the ffmpeg libraries during runtime, you need to add the following environment variables.
 
@@ -68,11 +68,15 @@ You can also declare these variables at the top level of your `snapcraft.yaml` i
 
 And many others!
 
+## Migrating from `core22` to `core24`
+
+Simply change all the occurances of `2204` to `2404` in your snapcraft.yaml file and you are good to go!
+
 ## How to contribute to this snap
 
 Thanks for your interest! Below you find instructions to help you contribute to this snap.
 
-The general workflow is to submit pull requests that merges your changes into the `2204` branch here on GitHub. Once the pull request has been merged, a GitHub action will automatically build the snap and publish it to the `candidate` channel in the Snap Store. Once the snap has been tested thoroughly, we promote it to the `stable` channel so all our users get it!
+The general workflow is to submit pull requests that merges your changes into the `2404` branch here on GitHub. Once the pull request has been merged, a GitHub action will automatically build the snap and publish it to the `candidate` channel in the Snap Store. Once the snap has been tested thoroughly, we promote it to the `stable` channel so all our users get it!
 
 ### Initial setup
 
