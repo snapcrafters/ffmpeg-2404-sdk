@@ -2,7 +2,7 @@ name: ffmpeg-2404-sdk
 title: FFmpeg SDK for Snaps
 summary: SDK for ffmpeg-2404
 description: SDK to build ffmpeg-2404 content snap
-version: '7.0.1'
+version: '7.0.2'
 base: core24
 grade: stable
 confinement: strict
