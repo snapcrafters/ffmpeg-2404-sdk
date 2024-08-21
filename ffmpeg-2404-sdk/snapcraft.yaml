@@ -421,13 +421,18 @@ parts:
       - -usr/lib/*/libdrm*
       - -usr/lib/*/libFLAC*
       - -usr/lib/*/libfontconfig*
+      - -usr/lib/*/libgbm*
       - -usr/lib/*/libgdk*
       - -usr/lib/*/libGL*
+      - -usr/lib/*/libglapi*
       - -usr/lib/*/libgomp*
       - -usr/lib/*/libgraphite*
       - -usr/lib/*/libharfbuzz*
       - -usr/lib/*/libicu*
+      - -usr/lib/*/libjbig*
       - -usr/lib/*/libjpeg*
+      - -usr/lib/*/liblber*
+      - -usr/lib/*/libldap*
       - -usr/lib/*/libLLVM*
       - -usr/lib/*/libmpg*
       - -usr/lib/*/libogg*
@@ -445,6 +450,7 @@ parts:
       - -usr/lib/*/libtiff*
       - -usr/lib/*/libtwolame*
       - -usr/lib/*/libva*
+      - -usr/lib/*/libvdpau*
       - -usr/lib/*/libvpx*
       - -usr/lib/*/libvulkan.so*
       - -usr/lib/*/libwayland*
