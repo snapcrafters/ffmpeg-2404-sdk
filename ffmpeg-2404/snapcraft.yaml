@@ -1,6 +1,6 @@
 name: ffmpeg-2404
 title: FFmpeg Library Content Snap
-summary: ffmpeg content snap for core22
+summary: ffmpeg content snap for core24
 description: |
   FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata.
   This snap is meant to be consumed with the gnome extension.
