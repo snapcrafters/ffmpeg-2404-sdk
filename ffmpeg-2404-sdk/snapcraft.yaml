@@ -473,3 +473,12 @@ parts:
       - -usr/lib/*/libxcb-x*.so*
       - -usr/lib/*/libxcb-p*.so*
       - -usr/lib/*/libxkb*
+  cleanup:
+    plugin: nil
+    source: https://github.com/canonical/gpu-snap.git
+    source-depth: 1
+    after: [debs]
+    override-prime: |
+      craftctl default
+      sed -i '/usr\/lib\/x86_64-linux-gnu\/libvulkan.so.1\*/d' ${CRAFT_PART_SRC}/lists/*.list
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404 nvidia-2404
