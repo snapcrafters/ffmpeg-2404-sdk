@@ -40,7 +40,7 @@ parts:
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
-    source-tag: 'v1.5.3'
+    source-tag: 'v1.5.4-rc.0'
     source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
