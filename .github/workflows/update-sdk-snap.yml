@@ -25,9 +25,9 @@ jobs:
           branch: '2404'
           snapcraft-project-root: 'ffmpeg-2404-sdk'
           update-script: |
-            NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git     | tail --lines=1 | cut --delimiter='/' --fields=3)
+            NV_CODEC_HEADERS_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg/nv-codec-headers.git | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.nv-codec-headers.source-tag = \"$NV_CODEC_HEADERS_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
-            SRT_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/Haivision/srt.git | tail --lines=1 | cut --delimiter='/' --fields=3)
+            SRT_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/Haivision/srt.git | grep -v '\-rc' | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.srt.source-tag = \"$SRT_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             AVISYNTH_PLUS_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/AviSynth/AviSynthPlus.git | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.avisynth-plus.source-tag = \"$AVISYNTH_PLUS_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
