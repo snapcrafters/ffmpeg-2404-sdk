@@ -66,3 +66,8 @@ jobs:
           snapcraft-project-root: "ffmpeg-2404-sdk"
           architectures: ${{ needs.get-architectures.outputs.architectures }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          testing-instructions: |
+            1. Grab the manifest of a snap that uses ffmpeg, for eg: [Tagger](https://github.com/NickvisionApps/tagger-snap/blob/main/snap/snapcraft.yaml)
+            1. Update the manifest to use ffmpeg-2404-sdk from candidate channel
+            like this, https://github.com/NickvisionApps/tagger-snap/blob/main/snap/snapcraft.yaml#L21
+            1. Build the snap and see if it builds perfectly
