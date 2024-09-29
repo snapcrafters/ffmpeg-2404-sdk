@@ -70,3 +70,17 @@ jobs:
           snapcraft-project-root: "ffmpeg-2404"
           architectures: ${{ needs.get-architectures.outputs.architectures }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          testing-instructions: |
+            1. Refresh the content snap
+            ```bash
+            sudo snap refresh --channel=latest/candidate ffmpeg-2404
+            ```
+            1. Install tagger (or any other snap that consumes this snap)
+            ```bash
+            sudo snap install tagger --channel=latest/candidate
+            ```
+            1. Connect the snap if not connected
+            ```bash
+            sudo snap connect tagger:ffmpeg-2404 ffmpeg-2404
+            ```
+            3. Run that snap, and see if there is any error
