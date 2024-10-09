@@ -443,7 +443,6 @@ parts:
       - -usr/lib/*/libpulse*
       - -usr/lib/*/libraw*
       - -usr/lib/*/librsvg*
-      - -usr/lib/*/libsample*
       - -usr/lib/*/libsensor*
       - -usr/lib/*/libsndfile*
       - -usr/lib/*/libthai*
