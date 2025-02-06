@@ -134,23 +134,6 @@ parts:
       - libxcb1-dev
       - libxrandr-dev
       - pkg-config
-  libva:
-    source: https://github.com/intel/libva.git
-    source-tag: '2.21.0'
-    source-depth: 1
-    plugin: meson
-    meson-parameters:
-      - --prefix=/usr
-      - -Doptimization=3
-      - -Ddebug=true
-      - -Dwith_x11=yes
-      - -Dwith_glx=yes
-      - -Dwith_wayland=yes
-    build-packages:
-      - meson
-      - libxcb-dri3-dev
-      - libx11-xcb-dev
-    override-prime: ''
   ffmpeg:
     after:
       - avisynth-plus
@@ -159,7 +142,6 @@ parts:
       - srt
       - x264
       - zimg
-      - libva
       - vulkan-loaders
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
