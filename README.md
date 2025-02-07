@@ -57,8 +57,8 @@ Now in the apps part which needs to use the ffmpeg libraries during runtime, you
 apps:
   app:
     environment:
-        LD_LIBRARY_PATH: $SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH
-        PATH: $SNAP/ffmpeg-platform/usr/bin:$PATH
+      LD_LIBRARY_PATH: $SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH
+      PATH: $SNAP/ffmpeg-platform/usr/bin:$PATH
 ```
 You can also declare these variables at the top level of your `snapcraft.yaml` if you want to use them in all the apps. Some snaps that use this ffmpeg-sdk.
 
