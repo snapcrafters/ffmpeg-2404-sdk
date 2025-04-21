@@ -54,7 +54,7 @@ parts:
   avisynth-plus:
     plugin: cmake
     source: https://github.com/AviSynth/AviSynthPlus.git
-    source-tag: 'v3.7.4'
+    source-tag: 'v3.7.5'
     source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
