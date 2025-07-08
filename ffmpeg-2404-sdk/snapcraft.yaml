@@ -26,6 +26,7 @@ platforms:
   arm64:
   armhf:
   ppc64el:
+  riscv64:
 parts:
   nv-codec-headers:
     plugin: make
@@ -165,7 +166,6 @@ parts:
       - libgsm1-dev
       - liblzma-dev
       - libmp3lame-dev
-      - libomxil-bellagio-dev
       - libopenal-dev
       - libopencore-amrnb-dev
       - libopencore-amrwb-dev
@@ -217,13 +217,13 @@ parts:
     override-build: |
       if [ "$CRAFT_ARCH_BUILD_FOR" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
-        EXTRA="--enable-vdpau --enable-nvenc --enable-cuvid"
-      elif [ "$CRAFT_ARCH_BUILD_FOR" = "i386" ]; then
-        EXTRA="--enable-vdpau --enable-nvenc"
+        EXTRA="--enable-libglslang --enable-vdpau --enable-nvenc --enable-cuvid --enable-nvdec"
       elif [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
-        EXTRA="--disable-vdpau --enable-neon"
+        EXTRA="--disable-vdpau --enable-neon --disable-libmfx"
       elif [ "$CRAFT_ARCH_BUILD_FOR" = "arm64" ]; then
-        EXTRA="--disable-vdpau"
+        EXTRA="--disable-vdpau --disable-libmfx"
+      elif [ "$CRAFT_ARCH_BUILD_FOR" = "riscv64" ]; then
+        EXTRA="--disable-asm" # https://trac.ffmpeg.org/ticket/11258
       else
         EXTRA=""
       fi
@@ -238,7 +238,9 @@ parts:
       --disable-txtpages \
       --disable-static \
       --enable-libaom \
+      --disable-sndio \
       --enable-avisynth \
+      --enable-chromaprint \
       --enable-libdav1d \
       --enable-ffplay \
       --enable-gnutls \
@@ -257,7 +259,11 @@ parts:
       --enable-libfreetype \
       --enable-libgme \
       --enable-libgsm \
+      --enable-libharfbuzz \
+      --enable-libiec61883 \
       --enable-libmp3lame \
+      --enable-libmysofa \
+      --enable-libplacebo \
       --enable-libopencore_amrnb \
       --enable-libopencore_amrwb \
       --enable-libopenjpeg \
@@ -272,10 +278,12 @@ parts:
       --enable-libspeex \
       --enable-libsrt \
       --enable-libssh \
+      --enable-libsvtav1 \
       --enable-libtesseract \
       --enable-libtheora \
       --enable-libtwolame \
       --enable-libv4l2 \
+      --enable-libvidstab \
       --enable-libvo_amrwbenc \
       --enable-libvorbis \
       --enable-libvpx \
@@ -288,7 +296,7 @@ parts:
       --enable-libzimg \
       --enable-libzmq \
       --enable-libzvbi \
-      --enable-omx \
+      --disable-omx \
       --enable-openal \
       --enable-opencl \
       --enable-opengl \
@@ -301,8 +309,6 @@ parts:
       --enable-xlib ${EXTRA}
 
       # TODO: re-enable `--enable-nonfree \` if we can determine the legality/licensing issues are ok.
-
-      # TODO: re-enable vulkan
 
       make -j $(nproc)
       make DESTDIR="$CRAFT_PART_INSTALL" install
