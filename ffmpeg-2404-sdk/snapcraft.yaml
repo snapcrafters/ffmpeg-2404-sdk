@@ -157,6 +157,7 @@ parts:
       - libbz2-dev
       - libcaca-dev
       - libcdio-paranoia-dev
+      - libchromaprint-dev
       - libcodec2-dev
       - libdc1394-dev
       - libdrm-dev
@@ -164,6 +165,7 @@ parts:
       - libgme-dev
       - libgnutls28-dev
       - libgsm1-dev
+      - libiec61883-dev
       - liblzma-dev
       - libmp3lame-dev
       - libopenal-dev
@@ -240,7 +242,6 @@ parts:
       --enable-libaom \
       --disable-sndio \
       --enable-avisynth \
-      --enable-chromaprint \
       --enable-libdav1d \
       --enable-ffplay \
       --enable-gnutls \
