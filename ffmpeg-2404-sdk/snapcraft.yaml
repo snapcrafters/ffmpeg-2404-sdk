@@ -135,22 +135,74 @@ parts:
       - libxcb1-dev
       - libxrandr-dev
       - pkg-config
+  rustup:
+    plugin: rust
+    source: .
+    rust-channel: "1.88"
+    override-build: ""
+    override-prime: ""
+  libdovi:
+    after: [rustup]
+    source: https://github.com/quietvoid/dovi_tool.git
+    source-tag: "libdovi-3.3.2"
+    source-subdir: "dolby_vision"
+    plugin: nil
+    build-environment:
+      - PATH: ${HOME}/.cargo/bin:${PATH}
+    override-build: |
+      craftctl default
+      cargo install cargo-c
+      cd dolby_vision
+      cargo cinstall --release --prefix $CRAFT_PART_INSTALL/usr
+  placebo:
+    after:
+      - libdovi
+    source: https://code.videolan.org/videolan/libplacebo.git
+    source-tag: 'v7.351.0'
+    source-depth: 1
+    plugin: meson
+    build-packages:
+      - liblcms2-dev
+    meson-parameters:
+      - --prefix=/usr
+      - --buildtype=release
+      - -Dtests=false
+      - -Ddemos=false
+      - -Dd3d11=disabled
+      - -Ddovi=enabled
+      - -Dlibdovi=enabled
+      - -Dlcms=enabled      
+      - -Dglslang=enabled
+      - -Dshaderc=enabled
+  svt-av1:
+    source: https://gitlab.com/AOMediaCodec/SVT-AV1.git
+    source-depth: 1
+    source-tag: 'v3.0.2'
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_SHARED_LIBS=ON
+      - -DNATIVE=OFF
   ffmpeg:
     after:
       - avisynth-plus
       - dav1d
       - nv-codec-headers
+      - placebo
       - srt
+      - svt-av1
       - x264
       - zimg
       - vulkan-loaders
-    plugin: autotools
+    plugin: nil
     source: https://git.ffmpeg.org/ffmpeg.git
     source-tag: 'n$SNAPCRAFT_PROJECT_VERSION'
     source-depth: 1
     build-packages:
-      - libaom-dev
       - flite1-dev
+      - glslang-tools
+      - libaom-dev
       - libass-dev
       - libbs2b-dev
       - libbluray-dev
@@ -165,9 +217,9 @@ parts:
       - libgme-dev
       - libgnutls28-dev
       - libgsm1-dev
-      - libiec61883-dev
       - liblzma-dev
       - libmp3lame-dev
+      - libmysofa-dev
       - libopenal-dev
       - libopencore-amrnb-dev
       - libopencore-amrwb-dev
@@ -179,6 +231,7 @@ parts:
       - librubberband-dev
       - libsctp-dev
       - libsdl2-dev
+      - libshaderc-dev
       - libshine-dev
       - libsnappy-dev
       - libsoxr-dev
@@ -190,6 +243,7 @@ parts:
       - libva-dev
       - libv4l-dev
       - libvdpau-dev
+      - libvidstab-dev
       - libvo-amrwbenc-dev
       - libvorbis-dev
       - libvpx-dev
@@ -208,6 +262,7 @@ parts:
       - ocl-icd-opencl-dev
       - opencl-headers
       - pkg-config
+      - spirv-tools
       - yasm
       #- on amd64:
       #- libcrystalhd-dev
@@ -216,7 +271,11 @@ parts:
       # - nvidia-cuda-toolkit
       #- on i386:
       #- libcrystalhd-dev
+    build-environment:
+      - LD_LIBRARY_PATH: $CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
     override-build: |
+      patch -p1 < ${CRAFT_PROJECT_DIR}/patches/0002-avcodec-libsvtav1-unbreak-build-with-latest-svtav1.patch
+      craftctl default
       if [ "$CRAFT_ARCH_BUILD_FOR" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free
         EXTRA="--enable-libglslang --enable-vdpau --enable-nvenc --enable-cuvid --enable-nvdec"
@@ -261,7 +320,6 @@ parts:
       --enable-libgme \
       --enable-libgsm \
       --enable-libharfbuzz \
-      --enable-libiec61883 \
       --enable-libmp3lame \
       --enable-libmysofa \
       --enable-libplacebo \
@@ -347,6 +405,7 @@ parts:
       - libgme0
       - libgsm1
       - libmp3lame0
+      - libmysofa1
       - libopenal1
       - libopencore-amrnb0
       - libopencore-amrwb0
@@ -363,6 +422,7 @@ parts:
       - libusb-1.0-0
       - libv4l-0t64
       - libv4l2rds0t64
+      - libvidstab1.1
       - libvdpau-va-gl1
       - libvo-amrwbenc0
       - libvpx9
