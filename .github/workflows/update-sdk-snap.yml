@@ -35,6 +35,12 @@ jobs:
             yq -i ".parts.dav1d.source-tag = \"$DAV1D_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             ZIMG_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/sekrit-twc/zimg.git | tail --lines=1 | cut --delimiter='/' --fields=3)
             yq -i ".parts.zimg.source-tag = \"$ZIMG_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
+            LIBDOVI_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://github.com/quietvoid/dovi_tool.git | tail --lines=1 | cut --delimiter='/' --fields=3)
+            yq -i ".parts.libdovi.source-tag = \"$LIBDOVI_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
+            PLACEBO_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://code.videolan.org/videolan/libplacebo.git | tail --lines=1 | cut --delimiter='/' --fields=3)
+            yq -i ".parts.placebo.source-tag = \"$PLACEBO_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
+            SVT_AV1_VERSION=$(git -c 'versionsort.suffix=-' ls-remote --refs --sort='v:refname' --tags https://gitlab.com/AOMediaCodec/SVT-AV1.git | tail --lines=1 | cut --delimiter='/' --fields=3)
+            yq -i ".parts.svt-av1.source-tag = \"$SVT_AV1_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
             FFMPEG_VERSION=$(git ls-remote --refs --sort='v:refname' --tags https://git.videolan.org/git/ffmpeg.git | awk '{print $2}' | sed 's/refs\/tags\///' | grep -v '^v' | grep -v '^ffmpeg' | grep -v '\-dev' | tail --lines=1 | cut -c 2-)
             yq -i ".version=\"$FFMPEG_VERSION\"" ffmpeg-2404-sdk/snapcraft.yaml
 
