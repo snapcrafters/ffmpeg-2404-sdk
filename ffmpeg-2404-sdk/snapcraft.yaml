@@ -171,7 +171,7 @@ parts:
       - -Dd3d11=disabled
       - -Ddovi=enabled
       - -Dlibdovi=enabled
-      - -Dlcms=enabled      
+      - -Dlcms=enabled
       - -Dglslang=enabled
       - -Dshaderc=enabled
   svt-av1:
