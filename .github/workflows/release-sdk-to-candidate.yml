@@ -35,6 +35,7 @@ jobs:
     needs: get-architectures
     runs-on: self-hosted
     environment: "2404 Branch"
+    timeout-minutes: 720
     strategy:
       fail-fast: false
       matrix:
