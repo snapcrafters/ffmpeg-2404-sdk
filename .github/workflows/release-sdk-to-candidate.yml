@@ -33,7 +33,7 @@ jobs:
   release-sdk:
     name: 🚢 Release to latest/candidate
     needs: get-architectures
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: "2404 Branch"
     strategy:
       fail-fast: false
