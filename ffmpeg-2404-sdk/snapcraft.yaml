@@ -413,6 +413,7 @@ parts:
       - libopus0
       - librubberband2
       - libsdl2-2.0-0
+      - libshaderc1
       - libshine3
       - libsnappy1v5
       - libsoxr0
