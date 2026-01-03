@@ -2,7 +2,7 @@
   FFmpeg SDK
 </h1>
 
-<p align="center"><b>This is the repository for the FFmpeg SDK and Content Snap.</b>. It is a community-maintained package to easily allow other snaps use the latest ffmpeg related libraries without any hassel via snapcraft's <a href="https://snapcraft.io/docs/content-interface">content interface</a>.</p>
+<p align="center"><b>This is the repository for the FFmpeg SDK and Content Snap.</b> It is a community-maintained package to easily allow other snaps use the latest ffmpeg related libraries without any hassel via snapcraft's <a href="https://snapcraft.io/docs/content-interface">content interface</a>.</p>
 
 <p align="center"><i>"FFmpeg is a collection of libraries and tools to process multimedia content such as audio, video, subtitles and related metadata."</i></p>
 
