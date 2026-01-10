@@ -138,7 +138,6 @@ parts:
   rustup:
     plugin: rust
     source: .
-    rust-channel: "1.88"
     override-build: ""
     override-prime: ""
   libdovi:
