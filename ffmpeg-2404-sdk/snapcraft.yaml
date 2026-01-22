@@ -97,8 +97,7 @@ parts:
     source-tag: 'release-3.0.6'
     source-depth: 1
     build-environment:
-      - CFLAGS: "-s"
-      - CXXFLAGS: "-s"
+      - LDFLAGS: "-s"
     autotools-configure-parameters:
       - --prefix=/usr
       - --libdir=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
@@ -114,8 +113,6 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DBUILD_TESTS=OFF
-      - -DCMAKE_C_FLAGS_RELEASE=-s
-      - -DCMAKE_CXX_FLAGS_RELEASE=-s
     build-packages:
       - libx11-dev
       - libxcb1-dev
