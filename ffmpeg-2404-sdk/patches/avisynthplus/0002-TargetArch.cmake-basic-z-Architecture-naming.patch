@@ -1,0 +1,16 @@
+TargetArch.cmake: basic z/Architecture naming · AviSynth/AviSynthPlus@d0ba141
+https://github.com/AviSynth/AviSynthPlus/commit/d0ba141
+--- a/avs_core/TargetArch.cmake
++++ b/avs_core/TargetArch.cmake
+@@ -57,6 +57,8 @@ set(archdetect_c_code "
+     #error cmake_ARCH sparc
+ #elif defined(__mips__)
+     #error cmake_ARCH mips
++#elif defined(__s390x__)
++    #error cmake_ARCH s390x
+ #endif
+ 
+ #error cmake_ARCH unknown
+-- 
+2.51.0
+

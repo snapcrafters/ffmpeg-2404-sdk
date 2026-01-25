@@ -27,6 +27,7 @@ platforms:
   armhf:
   ppc64el:
   riscv64:
+  s390x:
 parts:
   nv-codec-headers:
     plugin: make
@@ -62,6 +63,10 @@ parts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DCMAKE_C_FLAGS_RELEASE=-s
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
+    override-pull: |
+      craftctl default
+      patch -p1 < ${CRAFT_PROJECT_DIR}/patches/avisynthplus/0001-Initial-support-for-z-Architecture.patch
+      patch -p1 < ${CRAFT_PROJECT_DIR}/patches/avisynthplus/0002-TargetArch.cmake-basic-z-Architecture-naming.patch
   x264:
     plugin: autotools
     source: https://code.videolan.org/videolan/x264.git
