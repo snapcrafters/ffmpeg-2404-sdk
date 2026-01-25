@@ -28,6 +28,8 @@ platforms:
   armhf:
   ppc64el:
   riscv64:
+  s390x:
+
 slots:
   ffmpeg-2404:
     interface: content
