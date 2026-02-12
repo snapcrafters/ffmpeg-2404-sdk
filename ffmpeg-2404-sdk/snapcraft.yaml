@@ -153,7 +153,7 @@ parts:
     after:
       - libdovi
     source: https://code.videolan.org/videolan/libplacebo.git
-    source-tag: 'v7.351.0'
+    source-tag: 'v7.360.0'
     source-depth: 1
     plugin: meson
     build-packages:
