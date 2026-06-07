@@ -42,7 +42,7 @@ parts:
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
-    source-tag: 'x1.2.0'
+    source-tag: 'v1.5.4'
     source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
@@ -51,6 +51,8 @@ parts:
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
       - -DENABLE_LOGGING=OFF
       - -DENABLE_STATIC=OFF
+      # FFmpeg only needs the shared library, headers, and pkg-config metadata.
+      - -DENABLE_APPS=OFF
     build-packages:
       - libssl-dev
   avisynth-plus:
@@ -277,7 +279,6 @@ parts:
     build-environment:
       - LD_LIBRARY_PATH: $CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
     override-build: |
-      patch -p1 < ${CRAFT_PROJECT_DIR}/patches/0002-avcodec-libsvtav1-unbreak-build-with-latest-svtav1.patch
       craftctl default
       if [ "$CRAFT_ARCH_BUILD_FOR" = "amd64" ]; then
         # TODO: re-enable `--enable-cuda-sdk --enable-cuda --enable-libnpp` if we can determine that we can ship non-free

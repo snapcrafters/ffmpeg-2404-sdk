@@ -38,6 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: "2404 Branch"
     strategy:
+      # snapcraft remote-build uses one generated Launchpad git repo/ref per
+      # run; serialize matrix legs to avoid ref-lock races between arches.
+      max-parallel: 1
       fail-fast: false
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
