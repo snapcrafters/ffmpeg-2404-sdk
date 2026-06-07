@@ -42,7 +42,7 @@ parts:
   srt:
     plugin: cmake
     source: https://github.com/Haivision/srt.git
-    source-tag: 'x1.2.0'
+    source-tag: 'v1.5.4'
     source-depth: 1
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
@@ -51,6 +51,8 @@ parts:
       - -DCMAKE_CXX_FLAGS_RELEASE=-s
       - -DENABLE_LOGGING=OFF
       - -DENABLE_STATIC=OFF
+      # FFmpeg only needs the shared library, headers, and pkg-config metadata.
+      - -DENABLE_APPS=OFF
     build-packages:
       - libssl-dev
   avisynth-plus:
