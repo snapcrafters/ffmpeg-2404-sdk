@@ -38,6 +38,10 @@ jobs:
     timeout-minutes: 720
     strategy:
       fail-fast: false
+      # snapcraft remote-build uses a shared Launchpad git repo name per project.
+      # Running every architecture in parallel can race on that branch and make
+      # sibling jobs fail before the build starts.
+      max-parallel: 1
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
