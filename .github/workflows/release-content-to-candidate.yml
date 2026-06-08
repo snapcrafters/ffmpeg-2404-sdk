@@ -38,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: "2404 Branch"
     strategy:
-      fail-fast: false
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
