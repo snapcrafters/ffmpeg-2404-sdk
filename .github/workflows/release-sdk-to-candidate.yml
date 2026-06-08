@@ -37,7 +37,6 @@ jobs:
     environment: "2404 Branch"
     timeout-minutes: 720
     strategy:
-      fail-fast: false
       matrix:
         architecture: ${{ fromJSON(needs.get-architectures.outputs.architectures-list) }}
     steps:
