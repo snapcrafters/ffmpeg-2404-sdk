@@ -11,7 +11,7 @@
 <a href="https://snapcraft.io/ffmpeg-2404-sdk"><img src="https://snapcraft.io/ffmpeg-2404-sdk/badge.svg" alt="FFmpeg SDK Status"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
 
-<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yml/badge.svg"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-sdk-to-candidate.yml/badge.svg"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml/badge.svg"></a>
 </ul>
 
@@ -19,7 +19,7 @@
 <ul>
 <a href="https://snapcraft.io/ffmpeg-2404"><img src="https://snapcraft.io/ffmpeg-2404/badge.svg" alt="FFmpeg Content Snap Status"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/update-sdk-snap.yml/badge.svg"></a>
-<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yaml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yml/badge.svg"></a>
+<a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/release-content-to-candidate.yml/badge.svg"></a>
 <a href="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml"><img src="https://github.com/snapcrafters/ffmpeg-sdk/actions/workflows/promote-to-stable.yml/badge.svg"></a>
 </ul>
 
