@@ -5,8 +5,6 @@ on:
     workflows: ["Release ffmpeg-2404-sdk to candidate"]
     types: [completed]
     branches: ["2404"]
-    paths:
-      - "ffmpeg-2404/**"
   workflow_dispatch:
 
 concurrency:
